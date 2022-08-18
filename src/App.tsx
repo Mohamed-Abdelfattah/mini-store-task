@@ -6,19 +6,6 @@ import './App.css';
 import Layout from './components/Layout/Layout';
 import GlobalContext from './components/Utils/Context';
 
-// function QUERY_CATEGORY(category: string): DocumentNode {
-//   return gql`query {category(input: { title: ${category} }) {
-//       name
-//       products {
-//         id
-//         name
-//         description
-//       }
-//     }
-//   }
-// `;
-// }
-
 const QUERY_CATEGORY = gql`
   query ExampleQuery($input: CategoryInput) {
     category(input: $input) {
@@ -78,7 +65,7 @@ class ProductList extends React.Component {
                   <p>{error.networkError?.message}</p>
                 </>
               );
-            console.log(data);
+            // console.log(data);
             return (
               <div>
                 {data.category.products.map((product: any) => (
