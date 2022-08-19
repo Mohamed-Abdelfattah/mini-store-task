@@ -92,7 +92,7 @@ class App extends React.Component {
   static contextType?: React.Context<any> | undefined = GlobalContext;
 
   render(): React.ReactNode {
-    console.log(this.context);
+    // console.log(this.context);
 
     return (
       <div className="App">

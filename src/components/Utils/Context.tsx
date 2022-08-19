@@ -5,7 +5,7 @@ type ProviderProps = { children: React.ReactNode };
 export type GlobalContextState = {
   toRender: {
     page: 'listing' | 'description' | 'cart';
-    category: 'all' | 'clothes' | 'tech';
+    category: string;
     productId: string | null;
     showCart: boolean;
   };
@@ -15,7 +15,7 @@ export type GlobalContextState = {
 export type ContextObject = {
   toRender: {
     page: 'listing' | 'description' | 'cart';
-    category: 'all' | 'clothes' | 'tech';
+    category: string;
     productId: string | null;
     showCart: boolean;
   };
@@ -23,7 +23,7 @@ export type ContextObject = {
   showCartOverlay: () => void;
   navigateToProductDetailsPage: (id: string) => void;
   navigateToCartPage: () => void;
-  navigateToListingPage: (cat: 'all' | 'clothes' | 'tech') => void;
+  navigateToListingPage: (cat: string) => void;
 };
 
 const initialGlobalContextState: GlobalContextState = {
@@ -41,7 +41,7 @@ const initialGlobalContextObject: ContextObject = {
   showCartOverlay: () => {},
   navigateToProductDetailsPage: (id: string) => {},
   navigateToCartPage: () => {},
-  navigateToListingPage: (cat: 'all' | 'clothes' | 'tech') => {},
+  navigateToListingPage: (cat: string) => {},
 };
 
 const GlobalContext = React.createContext<ContextObject>(
@@ -63,7 +63,7 @@ export class GlobalContextProvider extends React.Component<
    * category) which will trigger re-render for any consumer providing it with the new state values which
    * will trigger new api call with these values to re-populate consumer's local data/state
    */
-  navigateToListingPage = (cat: 'all' | 'clothes' | 'tech') => {
+  navigateToListingPage = (cat: string) => {
     this.setState({
       toRender: {
         page: 'listing',
