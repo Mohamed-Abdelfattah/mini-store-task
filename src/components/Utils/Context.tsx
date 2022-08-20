@@ -10,16 +10,10 @@ export type GlobalContextState = {
     showCart: boolean;
   };
   cartItems: string[];
+  currency: { label: string; symbol: string };
 };
 
-export type ContextObject = {
-  toRender: {
-    page: 'listing' | 'description' | 'cart';
-    category: string;
-    productId: string | null;
-    showCart: boolean;
-  };
-  cartItems: string[];
+export type ContextObject = GlobalContextState & {
   showCartOverlay: () => void;
   navigateToProductDetailsPage: (id: string) => void;
   navigateToCartPage: () => void;
@@ -34,6 +28,7 @@ const initialGlobalContextState: GlobalContextState = {
     showCart: false,
   },
   cartItems: [],
+  currency: { label: 'USD', symbol: '$' },
 };
 
 const initialGlobalContextObject: ContextObject = {

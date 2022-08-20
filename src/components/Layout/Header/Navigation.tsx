@@ -2,13 +2,11 @@ import React, { Component } from 'react';
 import GlobalContext from '../../Utils/Context';
 import classes from './Navigation.module.css';
 
-type NavigationProps = {};
-type NavigationState = {};
+// type NavigationProps = {};
+// type NavigationState = {};
 
-export default class Navigation extends Component<
-  NavigationProps,
-  NavigationState
-> {
+export default class Navigation extends Component {
+  // <NavigationProps,NavigationState>
   static contextType = GlobalContext;
   context!: React.ContextType<typeof GlobalContext>;
 
@@ -21,18 +19,20 @@ export default class Navigation extends Component<
   // as it is mostly common to use links (anchor tags) inside an unordered list to represent the navbar links
   // and to make this work with TS I will be using the (strange) below code instead of a beautiful button
   // with an easy/normal handler
-  clickHandler(event: React.MouseEvent) {
+
+  clickHandler: React.MouseEventHandler<HTMLAnchorElement> = (event) => {
     event.preventDefault();
+    // const category = e.currentTarget.attributes[1].value;
     const category =
       event.currentTarget.attributes.getNamedItem('href')?.value!;
     // console.log('executing');
-    // console.log(category);
+    // console.dir(category);
     this.context.navigateToListingPage(category);
-  }
+  };
 
   render(): React.ReactNode {
     //
-    // console.log('rendering nav');
+    console.log('rendering nav');
     // console.log(this.context.navigateToListingPage);
     // console.log(this.clickHandler);
 

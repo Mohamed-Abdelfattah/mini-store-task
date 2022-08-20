@@ -1,0 +1,17 @@
+.arrowButton {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  cursor: pointer;
+  margin: 0.75rem;
+}
+.arrowButton svg {
+  margin: 0.25rem;
+  position: relative;
+}
+
+.menu {
+  list-style: none;
+  padding: 0;
+  position: absolute;
+}
