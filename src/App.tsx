@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { QueryResult } from '@apollo/client';
-import { gql } from '@apollo/client';
+// import { QueryResult } from '@apollo/client';
+import { gql, QueryResult } from '@apollo/client';
 import { Query } from '@apollo/client/react/components';
 import './App.css';
 import Layout from './components/Layout/Layout';

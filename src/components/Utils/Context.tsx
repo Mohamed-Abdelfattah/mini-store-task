@@ -18,6 +18,9 @@ export type ContextObject = GlobalContextState & {
   navigateToProductDetailsPage: (id: string) => void;
   navigateToCartPage: () => void;
   navigateToListingPage: (cat: string) => void;
+  changeCurrencySelection: (
+    payload: typeof initialGlobalContextState.currency
+  ) => void;
 };
 
 const initialGlobalContextState: GlobalContextState = {
@@ -37,6 +40,7 @@ const initialGlobalContextObject: ContextObject = {
   navigateToProductDetailsPage: (id: string) => {},
   navigateToCartPage: () => {},
   navigateToListingPage: (cat: string) => {},
+  changeCurrencySelection: (payload) => {},
 };
 
 const GlobalContext = React.createContext<ContextObject>(
@@ -110,12 +114,18 @@ export class GlobalContextProvider extends React.Component<
     });
   };
 
+  /**method to change the selected currency for the app globally */
+  changeCurrencySelection = (payload: typeof this.state.currency) => {
+    this.setState({ currency: payload });
+  };
+
   render(): React.ReactNode {
     const {
       showCartOverlay,
       navigateToProductDetailsPage,
       navigateToCartPage,
       navigateToListingPage,
+      changeCurrencySelection,
       // state,
     } = this;
 
@@ -127,6 +137,7 @@ export class GlobalContextProvider extends React.Component<
           navigateToProductDetailsPage,
           navigateToCartPage,
           navigateToListingPage,
+          changeCurrencySelection,
         }}
       >
         {this.props.children}

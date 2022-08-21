@@ -45,11 +45,7 @@ export default class Navigation extends Component {
               this.context.toRender.category === 'all' ? classes.active : ''
             }
           >
-            <a
-              className={classes.link}
-              onClick={this.clickHandler.bind(this)}
-              href="all"
-            >
+            <a className={classes.link} onClick={this.clickHandler} href="all">
               ALL
             </a>
           </li>
@@ -60,7 +56,7 @@ export default class Navigation extends Component {
           >
             <a
               className={classes.link}
-              onClick={this.clickHandler.bind(this)}
+              onClick={this.clickHandler}
               href="clothes"
             >
               CLOTHES
@@ -71,11 +67,7 @@ export default class Navigation extends Component {
               this.context.toRender.category === 'tech' ? classes.active : ''
             }
           >
-            <a
-              className={classes.link}
-              onClick={this.clickHandler.bind(this)}
-              href="tech"
-            >
+            <a className={classes.link} onClick={this.clickHandler} href="tech">
               TECH
             </a>
           </li>
