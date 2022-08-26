@@ -1,0 +1,15 @@
+.container {
+  padding: 1rem;
+}
+
+.container h2 {
+  font-size: 42px;
+  font-weight: 400;
+}
+
+.cardsLayout {
+  display: grid;
+  /* grid-template-columns: repeat(3, 1fr); */
+  grid-template-columns: repeat(auto-fit, minmax(386px, 1fr));
+  gap: 40px;
+}

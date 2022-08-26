@@ -11,6 +11,11 @@
   position: relative;
 }
 
+.arrowButton label {
+  font-size: 18px;
+  font-weight: 500;
+}
+
 .menu {
   list-style: none;
   padding: 0;

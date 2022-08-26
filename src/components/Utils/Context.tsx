@@ -2,6 +2,24 @@ import React from 'react';
 
 type ProviderProps = { children: React.ReactNode };
 
+type Price = {
+  currency: { symbol: string };
+  amount: number;
+};
+
+type Attribute = {
+  displayValue: string;
+  value: string;
+  id: string;
+};
+
+type AttributeSet = {
+  id: string;
+  name: string;
+  type: string;
+  items: [Attribute];
+};
+
 export type GlobalContextState = {
   toRender: {
     page: 'listing' | 'description' | 'cart';
@@ -9,7 +27,20 @@ export type GlobalContextState = {
     productId: string | null;
     showCart: boolean;
   };
-  cartItems: string[];
+  cart: {
+    total: { qty: number; cost: number };
+    items:
+      | []
+      | {
+          qty: number;
+          uniqueId: string;
+          name: string;
+          brand: string;
+          attributes: [] | AttributeSet[];
+          prices: Price[];
+          gallery: string[];
+        }[];
+  };
   currency: { label: string; symbol: string };
 };
 
@@ -30,7 +61,7 @@ const initialGlobalContextState: GlobalContextState = {
     productId: null,
     showCart: false,
   },
-  cartItems: [],
+  cart: { total: { qty: 0, cost: 0 }, items: [] },
   currency: { label: 'USD', symbol: '$' },
 };
 
@@ -114,10 +145,16 @@ export class GlobalContextProvider extends React.Component<
     });
   };
 
-  /**method to change the selected currency for the app globally */
+  /** method to change the selected currency for the app globally */
   changeCurrencySelection = (payload: typeof this.state.currency) => {
     this.setState({ currency: payload });
   };
+
+  /** method to add a product to the cart - upon adding a product to the cart a unique id for this product will be
+   * generated `${product.id}-${}-${}`
+   */
+
+  /** method to add  */
 
   render(): React.ReactNode {
     const {
