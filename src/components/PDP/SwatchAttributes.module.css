@@ -1,0 +1,38 @@
+.container {
+  display: flex;
+  flex-direction: row;
+}
+
+.dd {
+  width: 37px;
+  height: 37px;
+  margin: 8px 6px;
+  margin-left: 0;
+}
+
+/* .dd:hover {
+  border: 1px solid #5ece7b;
+} */
+
+.outerBox {
+  /* box-sizing: border-box; */
+  width: 36px;
+  height: 36px;
+  /* background-color: rgba(255, 255, 255, 0); */
+}
+
+.outerBox:hover {
+  border: 1px solid #5ece7b;
+  cursor: pointer;
+}
+
+.selected {
+  border: 1px solid #5ece7b;
+}
+
+.box {
+  box-sizing: border-box;
+  width: 32px;
+  height: 32px;
+  margin: 2px;
+}

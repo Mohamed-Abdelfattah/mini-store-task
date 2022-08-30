@@ -2,7 +2,7 @@ import { gql, QueryResult } from '@apollo/client';
 import { Query } from '@apollo/client/react/components';
 import React from 'react';
 import GlobalContext from '../components/Utils/Context';
-import ProductCard from '../components/ProductCard';
+import ProductCard from '../components/PLP/ProductCard';
 import classes from './PLP.module.css';
 
 const QUERY_CATEGORY = gql`

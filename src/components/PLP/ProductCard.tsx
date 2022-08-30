@@ -1,7 +1,7 @@
 import React from 'react';
-import GlobalContext from './Utils/Context';
+import GlobalContext from '../Utils/Context';
 import classes from './ProductCard.module.css';
-import { ReactComponent as AddToCartIcon } from '../Icons/addToCart.svg';
+import { ReactComponent as AddToCartIcon } from '../../Icons/addToCart.svg';
 
 type ProductCardProps = {
   id: string;
@@ -28,9 +28,13 @@ export default class ProductCard extends React.Component<ProductCardProps> {
     );
 
     return (
-      <div className={classes.card}>
+      <div
+        onClick={() => {
+          this.context.navigateToProductDetailsPage(this.props.id);
+        }}
+        className={classes.card}
+      >
         <div className={classes.cover}>
-          {/* <AddToCartIcon2 className={classes.icon} /> */}
           <img
             src={this.props.image}
             alt={this.props.name}

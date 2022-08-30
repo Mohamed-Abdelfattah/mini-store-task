@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 import Layout from './components/Layout/Layout';
 import GlobalContext from './components/Utils/Context';
+import PDP from './Routes/PDP';
 import ProductList from './Routes/PLP';
 
 console.log('--this should be printed once--');
@@ -89,7 +90,8 @@ console.log('--this should be printed once--');
 // ProductList.contextType = GlobalContext;
 
 class App extends React.Component {
-  static contextType?: React.Context<any> | undefined = GlobalContext;
+  static contextType = GlobalContext;
+  context!: React.ContextType<typeof GlobalContext>;
 
   render(): React.ReactNode {
     // console.log(this.context);
@@ -97,7 +99,13 @@ class App extends React.Component {
     return (
       <div className="App">
         <Layout>
-          <ProductList />
+          {/* {this.context.toRender.showCart && <CartOverlay/>} */}
+          {this.context.toRender.page === 'description' ? (
+            <PDP />
+          ) : (
+            // this.context.toRender.page === 'cart'?<Cart/>:
+            <ProductList />
+          )}
         </Layout>
       </div>
     );

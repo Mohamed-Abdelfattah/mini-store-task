@@ -20,6 +20,16 @@ type AttributeSet = {
   items: [Attribute];
 };
 
+export type CartItem = {
+  qty: number;
+  uniqueId: string;
+  name: string;
+  brand: string;
+  attributes: [] | AttributeSet[];
+  prices: Price[];
+  gallery: string[];
+};
+
 export type GlobalContextState = {
   toRender: {
     page: 'listing' | 'description' | 'cart';
@@ -27,21 +37,9 @@ export type GlobalContextState = {
     productId: string | null;
     showCart: boolean;
   };
-  cart: {
-    total: { qty: number; cost: number };
-    items:
-      | []
-      | {
-          qty: number;
-          uniqueId: string;
-          name: string;
-          brand: string;
-          attributes: [] | AttributeSet[];
-          prices: Price[];
-          gallery: string[];
-        }[];
-  };
+  cartItems: CartItem[] | [];
   currency: { label: string; symbol: string };
+  total: { qty: number; cost: number };
 };
 
 export type ContextObject = GlobalContextState & {
@@ -61,8 +59,9 @@ const initialGlobalContextState: GlobalContextState = {
     productId: null,
     showCart: false,
   },
-  cart: { total: { qty: 0, cost: 0 }, items: [] },
+  cartItems: [],
   currency: { label: 'USD', symbol: '$' },
+  total: { qty: 0, cost: 0 },
 };
 
 const initialGlobalContextObject: ContextObject = {
@@ -111,7 +110,7 @@ export class GlobalContextProvider extends React.Component<
     this.setState({
       toRender: {
         page: 'description',
-        category: 'all',
+        category: this.state.toRender.category,
         productId: id,
         showCart: false,
       },
@@ -150,11 +149,39 @@ export class GlobalContextProvider extends React.Component<
     this.setState({ currency: payload });
   };
 
-  /** method to add a product to the cart - upon adding a product to the cart a unique id for this product will be
-   * generated `${product.id}-${}-${}`
-   */
+  /** method to update the total state {qty,cost} - this method will be invoked upon adding or removing items from cart*/
+  updateTotal = () => {
+    let newTotal = { ...this.state.total };
+    for (let item of this.state.cartItems) {
+      newTotal.qty += item.qty;
+      newTotal.cost += item.prices.find(
+        (el) => el.currency.symbol === this.state.currency.symbol
+      )?.amount!;
+    }
+    this.setState({ total: newTotal });
+  };
 
-  /** method to add  */
+  /** method to add a product to the cart - cart state itself consists of items where each one have a uniqueId
+   * property with format: `${product.id}-${attribute-1}-${attribute-2}...` which will be generated based on the
+   * selected attributes by user upon adding the product in PDP - the adding to cart process will search for the
+   * payload item (using its uniqueId) in the existing cart state and if a similar product exists its corresponding
+   * qty will be incremented +1 and if no such product exists a new one will be added with its corresponding
+   * attributes - total state {qty,cost} will be updated as well by invoking updateTotal() method and these state
+   * updates should trigger a rerender for any consuming component */
+  addToCart = (payload: CartItem) => {
+    const existingItemIndex = this.state.cartItems.findIndex(
+      (el) => el.uniqueId === payload.uniqueId
+    );
+    const updatedCartItems = [...this.state.cartItems];
+    // for already existing items we just increment its qty
+    if (existingItemIndex !== -1) {
+      updatedCartItems[existingItemIndex].qty++;
+      // in case of a product that isn't in cart new cartItem will be added
+    } else {
+      updatedCartItems.push(payload);
+    }
+    this.setState({ cartItems: updatedCartItems }, this.updateTotal);
+  };
 
   render(): React.ReactNode {
     const {
