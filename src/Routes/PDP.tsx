@@ -208,6 +208,7 @@ export default class PDP extends Component<propsPDP, statePDP> {
                   </p>
                   {this.state.isReadyToBeAdded ? (
                     <button
+                      className={classes.btn}
                       onClick={() => {
                         this.context.addToCart(this.state.product);
                         // this.setState({
@@ -223,7 +224,9 @@ export default class PDP extends Component<propsPDP, statePDP> {
                       ADD TO CART
                     </button>
                   ) : (
-                    <button disabled>ADD TO CART</button>
+                    <button className={classes.btn} disabled>
+                      ADD TO CART
+                    </button>
                   )}
                   <div
                     dangerouslySetInnerHTML={{
