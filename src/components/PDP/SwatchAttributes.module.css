@@ -3,6 +3,10 @@
   flex-direction: row;
 }
 
+.general {
+  margin-top: 24px;
+}
+
 .dd {
   width: 37px;
   height: 37px;

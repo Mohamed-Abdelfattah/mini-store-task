@@ -15,7 +15,7 @@ type State = {};
 export default class TextAttributes extends Component<Props, State> {
   render() {
     return (
-      <div>
+      <div className={classes.general}>
         <label>{this.props.attributeData.name.toUpperCase()}:</label>
         <div className={classes.container}>
           {this.props.attributeData.items.map((element) => (
@@ -31,7 +31,7 @@ export default class TextAttributes extends Component<Props, State> {
                 this.props.selectAttributeHandler(element.id);
               }}
             >
-              {element.displayValue}
+              {element.value}
             </div>
           ))}
         </div>

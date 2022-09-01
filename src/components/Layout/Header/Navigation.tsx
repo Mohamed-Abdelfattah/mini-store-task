@@ -32,7 +32,8 @@ export default class Navigation extends Component {
 
   render(): React.ReactNode {
     //
-    console.log('rendering nav');
+    console.log('---rendering nav---and context---');
+    console.log(this.context);
     // console.log(this.context.navigateToListingPage);
     // console.log(this.clickHandler);
 

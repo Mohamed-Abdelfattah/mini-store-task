@@ -8,13 +8,23 @@
   justify-content: space-around;
 }
 
+.info {
+  margin-left: 80px;
+  max-width: 30%;
+}
+
 label {
-  font-family: 'Roboto Condensed' 'Raleway';
+  font-family: 'Roboto Condensed';
   font-style: normal;
   font-weight: 700;
   font-size: 18px;
   line-height: 18px;
   color: #1d1f22;
+}
+
+.label {
+  display: inline-block;
+  margin-top: 36px;
 }
 
 .brand {
@@ -25,6 +35,7 @@ label {
 }
 
 .name {
+  margin-bottom: 44px;
   font-weight: 400;
   font-size: 30px;
   line-height: 27px;

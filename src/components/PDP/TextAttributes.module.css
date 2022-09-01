@@ -1,15 +1,21 @@
+.general {
+  margin-top: 24px;
+}
+
 .container {
   display: flex;
   flex-direction: row;
 }
 
 .box {
-  padding: 8px;
-  margin: 8px;
-  margin-left: 0;
+  padding: 13px 22px;
+  margin-top: 8px;
+  margin-right: 8px;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 18px;
+  letter-spacing: 0.05em;
   color: #1d1f22;
-  font-size: 20px;
-  font-weight: 500;
   background-color: #fff;
   border: 2px solid #1d1f22;
 }

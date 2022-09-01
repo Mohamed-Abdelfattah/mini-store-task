@@ -16,18 +16,18 @@ export default class SwatchAttributes extends Component<Props, State> {
   //   state = { selected: { id: this.props.selection[this.props.attributeData.name] } };
 
   selectAttributeHandler = (newID: string) => {
-    console.log(newID);
+    // console.log(newID);
     this.setState({ selected: { id: newID } });
   };
 
   render() {
-    console.log(
-      '---rendering swatch---',
-      this.props.attributeData.items,
-      this.state
-    );
+    // console.log(
+    //   '---rendering swatch---',
+    //   this.props.attributeData.items,
+    //   this.state
+    // );
     return (
-      <div>
+      <div className={classes.general}>
         <label>{this.props.attributeData.name.toUpperCase()}:</label>
         <div className={classes.container}>
           {this.props.attributeData.items.map((element) => (

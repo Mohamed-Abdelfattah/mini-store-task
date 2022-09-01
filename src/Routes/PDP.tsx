@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import GalleryViewer from '../components/PDP/GalleryViewer';
 import SwatchAttributes from '../components/PDP/SwatchAttributes';
 import TextAttributes from '../components/PDP/TextAttributes';
-import GlobalContext from '../components/Utils/Context';
+import GlobalContext, { CartItem } from '../components/Utils/Context';
 import classes from './PDP.module.css';
 
 const QUERY_PRODUCT = gql`
@@ -37,22 +37,23 @@ const QUERY_PRODUCT = gql`
   }
 `;
 
-type Attribute = {
-  displayValue: String;
-  value: String;
-  id: String;
-};
+// type Attribute = {
+//   displayValue: String;
+//   value: String;
+//   id: String;
+// };
 
-type AttributeSet = {
-  id?: String | null;
-  name?: String | null;
-  type?: String | null;
-  items?: [Attribute] | [];
-};
+// type AttributeSet = {
+//   id?: String | null;
+//   name?: String | null;
+//   type?: String | null;
+//   items?: [Attribute] | [];
+// };
 
 // type statePDP = AttributeSet & { isReadyToBeAdded?: boolean };
 type statePDP = {
   selections?: { [k: string]: any };
+  product?: CartItem;
   isReadyToBeAdded?: boolean;
 };
 type propsPDP = {};
@@ -60,16 +61,44 @@ export default class PDP extends Component<propsPDP, statePDP> {
   static contextType = GlobalContext;
   context!: React.ContextType<typeof GlobalContext>;
 
-  state = { selections: {}, isReadyToBeAdded: true };
+  state = {
+    selections: {},
+    isReadyToBeAdded: true,
+    product: {
+      qty: 1,
+      uniqueId: null,
+      name: null,
+      brand: null,
+      attributes: [],
+      prices: [],
+      gallery: [],
+      id: null,
+    },
+  };
 
-  evaluateReadyToBeAdded = () => {
-    const nullAttributeIndex = Object.values(this.state.selections).findIndex(
-      (el) => el === null
-    );
-    console.log('---1st index of null:', nullAttributeIndex);
-    if (nullAttributeIndex === -1) {
-      this.setState({ isReadyToBeAdded: true });
+  evaluateReadyToBeAddedAndGenerateUniqueId = () => {
+    // const nullAttributeIndex = Object.values(this.state.selections).findIndex(
+    //   (el) => el === null
+    // );
+    let nullValueFound = false;
+    let newUniqueId = this.state.product.id || '';
+    for (let attributeValue of Object.values(this.state.selections)) {
+      if (attributeValue) {
+        newUniqueId += `-${attributeValue}`;
+      } else {
+        nullValueFound = true;
+      }
     }
+    console.log(
+      '---newUniqueId: ',
+      newUniqueId,
+      'nullValueFound:',
+      nullValueFound
+    );
+    this.setState({
+      isReadyToBeAdded: !nullValueFound,
+      product: { ...this.state.product, uniqueId: newUniqueId, qty: 1 },
+    });
   };
 
   // componentDidUpdate() {
@@ -80,11 +109,17 @@ export default class PDP extends Component<propsPDP, statePDP> {
   changeSelection = (property: string, id: string) => {
     // console.log('---executing changeSelection---', property, id);
     // setState accepts a 2nd argument which is a callback to be executed programmatically after state gets updated
+
     this.setState(
       (prevState) => ({
+        ...prevState,
         selections: { ...prevState.selections, [property]: id },
+        product: {
+          ...prevState.product,
+          // uniqueId: `${prevState.product?.uniqueId}-${id}`,
+        },
       }),
-      this.evaluateReadyToBeAdded
+      this.evaluateReadyToBeAddedAndGenerateUniqueId
     );
   };
 
@@ -102,13 +137,18 @@ export default class PDP extends Component<propsPDP, statePDP> {
               const stateObject: { [k: string]: any } = {
                 isReadyToBeAdded: false,
                 selections: {},
+                product: {
+                  ...data.product,
+                  uniqueId: data.product.id,
+                  qty: 1,
+                },
               };
 
               for (let attributeSet of data.product.attributes) {
                 stateObject.selections[attributeSet.name] = null;
               }
               this.setState(stateObject);
-              console.log(stateObject);
+              console.log('@PDP - populating attributes', stateObject);
             }
           }}
         >
@@ -125,7 +165,7 @@ export default class PDP extends Component<propsPDP, statePDP> {
                   <p>{error.networkError?.message}</p>
                 </>
               );
-            console.log('state:', this.state);
+            console.log('@PDP product state:', this.state);
             const priceTag = data.product.prices.find(
               (item: any) =>
                 item.currency.symbol === this.context.currency.symbol
@@ -133,7 +173,7 @@ export default class PDP extends Component<propsPDP, statePDP> {
             return (
               <div className={classes.container}>
                 <GalleryViewer images={data.product.gallery} />
-                <div>
+                <div className={classes.info}>
                   <p className={classes.brand}>{data.product.brand}</p>
                   <p className={classes.name}>{data.product.name}</p>
                   {data.product.attributes.map((attribute: any) =>
@@ -159,13 +199,29 @@ export default class PDP extends Component<propsPDP, statePDP> {
                       />
                     )
                   )}
-                  <label htmlFor="price">PRICE:</label>
+                  <label htmlFor="price" className={classes.label}>
+                    PRICE:
+                  </label>
                   <p id="price" className={classes.price}>
                     {priceTag.currency.symbol}
                     {priceTag.amount}
                   </p>
                   {this.state.isReadyToBeAdded ? (
-                    <button>ADD TO CART</button>
+                    <button
+                      onClick={() => {
+                        this.context.addToCart(this.state.product);
+                        // this.setState({
+                        //   product: { uniqueId: this.state.product.id },
+                        // });
+                        // console.log(
+                        //   '--- should execute addProduct method from the context ---'
+                        // );
+                        // console.log(this.state);
+                        // console.dir(this.props);
+                      }}
+                    >
+                      ADD TO CART
+                    </button>
                   ) : (
                     <button disabled>ADD TO CART</button>
                   )}

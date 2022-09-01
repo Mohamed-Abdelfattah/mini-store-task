@@ -3,8 +3,6 @@ import { ReactComponent as CartIcon } from '../../../Icons/Empty Cart.svg';
 import GlobalContext, { CartItem } from '../../Utils/Context';
 import classes from './CartButton.module.css';
 
-const reducer = (sum: number, current: CartItem): number => sum + current.qty;
-
 export default class CartButton extends Component {
   static contextType = GlobalContext;
   context!: React.ContextType<typeof GlobalContext>;
@@ -26,8 +24,8 @@ export default class CartButton extends Component {
       <>
         <div className={classes.icon}>
           <CartIcon />
-          {/* {this.context.cartItems.length > 0 && ( */}
-          {true && (
+          {this.context.total.qty > 0 && (
+            // {true && (
             <div className={classes.badge}>
               {/* {this.context.cartItems.reduce((sum, current:CartItem)=> sum + current.qty, 0)} */}
               {this.context.total.qty}
