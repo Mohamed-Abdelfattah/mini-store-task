@@ -8,23 +8,26 @@ type Props = {
   };
   selection?: any;
   selectAttributeHandler: (id: string) => void;
+  cssCategory?: string;
 };
 
 type State = {};
 
 export default class TextAttributes extends Component<Props, State> {
   render() {
+    const { cssCategory, attributeData, selection } = this.props;
+    console.log('-----@@@ cssCategory =', cssCategory);
+
     return (
-      <div className={classes.general}>
-        <label>{this.props.attributeData.name.toUpperCase()}:</label>
-        <div className={classes.container}>
-          {this.props.attributeData.items.map((element) => (
+      <div className={classes[cssCategory + '-general']}>
+        <label>{attributeData.name.toUpperCase()}:</label>
+        <div className={classes[cssCategory + '-container']}>
+          {attributeData.items.map((element) => (
             <div
               key={element.id}
-              className={`${classes.box} ${
-                this.props.selection[this.props.attributeData.name] ===
-                element.id
-                  ? classes.selected
+              className={`${classes[cssCategory + '-box']} ${
+                selection[attributeData.name] === element.id
+                  ? classes[cssCategory + '-selected']
                   : ''
               }`}
               onClick={() => {

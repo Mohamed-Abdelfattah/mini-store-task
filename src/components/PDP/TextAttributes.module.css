@@ -1,32 +1,64 @@
-.general {
+.cart-general {
   margin-top: 24px;
 }
 
-.container {
+.cart-container {
   display: flex;
   flex-direction: row;
 }
 
-.box {
+.cart-box {
   padding: 13px 22px;
   margin-top: 8px;
   margin-right: 8px;
   font-weight: 400;
   font-size: 16px;
   line-height: 18px;
-  letter-spacing: 0.05em;
   color: #1d1f22;
   background-color: #fff;
   border: 2px solid #1d1f22;
 }
 
-.box:hover {
+.cart-box:hover {
   cursor: pointer;
   color: #fff;
   background-color: #1d1f22;
 }
 
-.selected {
+.cart-selected {
+  color: #fff;
+  background-color: #1d1f22;
+}
+
+.overlay-general {
+  /* margin-top: 24px; */
+}
+
+.overlay-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.overlay-box {
+  padding: 3px 8px;
+  margin-top: 8px;
+  margin-right: 8px;
+  font-weight: 400;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 160%;
+  color: #1d1f22;
+  background-color: #fff;
+  border: 1px solid #1d1f22;
+}
+
+.overlay-box:hover {
+  cursor: pointer;
+  color: #fff;
+  background-color: #1d1f22;
+}
+
+.overlay-selected {
   color: #fff;
   background-color: #1d1f22;
 }

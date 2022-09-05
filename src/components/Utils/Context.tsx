@@ -22,13 +22,15 @@ type AttributeSet = {
 
 export type CartItem = {
   qty?: number | null;
-  uniqueId?: string | null;
+  selectionsId?: string | null;
   name?: string | null;
   id?: string | null;
   brand?: string | null;
   attributes?: [] | AttributeSet[];
   prices?: Price[] | [];
   gallery?: string[] | [];
+  selections?: { [k: string]: string };
+  uniqueId?: string | null;
 };
 
 export type GlobalContextState = {
@@ -44,7 +46,7 @@ export type GlobalContextState = {
 };
 
 export type ContextObject = GlobalContextState & {
-  showCartOverlay: () => void;
+  toggleCartOverlay: () => void;
   navigateToProductDetailsPage: (id: string) => void;
   navigateToCartPage: () => void;
   navigateToListingPage: (cat: string) => void;
@@ -52,6 +54,12 @@ export type ContextObject = GlobalContextState & {
     payload: typeof initialGlobalContextState.currency
   ) => void;
   addToCart: (payload: CartItem) => void;
+  modifyCartItem: (
+    aUniqueId: string,
+    payload: { [key: string]: string }
+  ) => void;
+  addFromCart: (aUniqueId: string) => void;
+  removeFromCart: (aUniqueId: string) => void;
 };
 
 const initialGlobalContextState: GlobalContextState = {
@@ -68,12 +76,15 @@ const initialGlobalContextState: GlobalContextState = {
 
 const initialGlobalContextObject: ContextObject = {
   ...initialGlobalContextState,
-  showCartOverlay: () => {},
+  toggleCartOverlay: () => {},
   navigateToProductDetailsPage: (id: string) => {},
   navigateToCartPage: () => {},
   navigateToListingPage: (cat: string) => {},
   changeCurrencySelection: (payload) => {},
   addToCart: (payload) => {},
+  modifyCartItem: (aUniqueId, payload) => {},
+  addFromCart: (aUniqueId) => {},
+  removeFromCart: (aUniqueId) => {},
 };
 
 const GlobalContext = React.createContext<ContextObject>(
@@ -124,7 +135,7 @@ export class GlobalContextProvider extends React.Component<
    * (showCart) which will trigger re-render for any consumer providing it with the new state values which
    * will render cart overlay
    */
-  showCartOverlay = () => {
+  toggleCartOverlay = () => {
     this.setState((prevState) => {
       return {
         toRender: {
@@ -152,32 +163,32 @@ export class GlobalContextProvider extends React.Component<
     this.setState({ currency: payload });
   };
 
-  /** method to update the total state {qty,cost} - this method will be invoked upon adding or removing items from cart*/
-  // updateTotal = () => {
-  //   console.log('---updating total @context---');
-  //   const newTotal = { ...this.state.total };
-  //   for (let item of this.state.cartItems) {
-  //     newTotal.qty += item.qty!;
-  //     newTotal.cost += item.prices!.find(
-  //       (el) => el.currency.symbol === this.state.currency.symbol
-  //     )?.amount!;
-  //   }
-  //   this.setState({ total: newTotal }, () =>
-  //     console.log('---after updating total context state ==>', this.state)
-  //   );
-  // };
+  /**method to return a new total state value to be used in updating context state in any method - will accept list of type
+   * of transaction (add or remove) and price list to update total.cost and total.qty will be +1 or -1 - method won't update
+   * total state directly to avoid additional state changes (when using adding or removing methods this.setState will be
+   * called with the new cartItems and new total state) */
+  getUpdatedTotal = (transactionType: 'add' | 'remove', priceList: Price[]) => {
+    const operator = transactionType === 'remove' ? -1 : 1;
+    let newQty = this.state.total.qty + operator;
+    const newCost = { ...this.state.total.cost };
+    for (let element of priceList) {
+      newCost[element.currency.symbol] =
+        (newCost[element.currency.symbol] || 0) + operator * element.amount;
+    }
+    return { qty: newQty, cost: newCost };
+  };
 
-  /** method to add a product to the cart - cart state itself consists of items where each one have a uniqueId
+  /** method to add a product to the cart - cart state itself consists of items where each one have a selectionsId
    * property with format: `${product.id}-${attribute-1}-${attribute-2}...` which will be generated based on the
    * selected attributes by user upon adding the product in PDP - the adding to cart process will search for the
-   * payload item (using its uniqueId) in the existing cart state and if a similar product exists its corresponding
+   * payload item (using its selectionsId) in the existing cart state and if a similar product exists its corresponding
    * qty will be incremented +1 and if no such product exists a new one will be added with its corresponding
    * attributes - total state {qty,cost} will be updated as well by adding the new values*/
   addToCart = (payload: CartItem) => {
     const newTotalCost: { [k: string]: number } = { $: 0 };
     const updatedCartItems: CartItem[] = [];
     const existingItemIndex = this.state.cartItems.findIndex(
-      (el) => el.uniqueId === payload.uniqueId
+      (el) => el.selectionsId === payload.selectionsId
     );
     for (let item of this.state.cartItems) {
       updatedCartItems.push({ ...item });
@@ -189,46 +200,106 @@ export class GlobalContextProvider extends React.Component<
     } else {
       updatedCartItems.push(payload);
     }
-    // console.log('---@adding - total', this.state.total);
-    // updating total state
-    const newQty = this.state.total.qty + 1;
-    for (let element of payload.prices!) {
-      // console.log(
-      //   '----element.amount =',
-      //   element.amount,
-      //   'prev =',
-      //   this.state.total.cost[element.currency.symbol]
-      // );
-      newTotalCost[element.currency.symbol] =
-        (this.state.total.cost[element.currency.symbol] || 0) + element.amount;
-      // console.log('---', newTotalCost[element.currency.symbol]);
-    }
+
+    const newTotal = this.getUpdatedTotal('add', payload.prices!);
+    // const newQty = this.state.total.qty + 1;
+    // for (let element of payload.prices!) {
+    //   newTotalCost[element.currency.symbol] =
+    //     (this.state.total.cost[element.currency.symbol] || 0) + element.amount;
+    // }
     this.setState({
-      total: { qty: newQty, cost: newTotalCost },
+      total: newTotal,
       cartItems: updatedCartItems,
     });
   };
 
+  /**method to modify specific item selections - method should be executed with params(uniqueId, newSelections) uniqueId will
+   * be used to find the exact item to apply the modifications and to generate a new selectionsId which will be used when adding
+   * a new product from PDP or PLP try finding an existing cartItem with similar attributes and update its qty or add a new one */
+  modifyCartItem = (aUniqueId: string, payload: { [key: string]: string }) => {
+    const updatedCartItems: CartItem[] = [];
+    const existingItemIndex = this.state.cartItems.findIndex(
+      (el) => el.uniqueId === aUniqueId
+    );
+    let newSelectionsId = this.state.cartItems[existingItemIndex].id;
+    for (let item of this.state.cartItems) {
+      updatedCartItems.push({ ...item });
+    }
+    // generate new selectionsId
+    for (let value of Object.values(payload)) {
+      newSelectionsId += `-${value}`;
+    }
+    updatedCartItems[existingItemIndex].selections = payload;
+    updatedCartItems[existingItemIndex].selectionsId = newSelectionsId;
+    this.setState({ cartItems: updatedCartItems });
+  };
+
+  /**method to add an item from cart - on cartOverlay or cart page (when pressing + button) additional item with the same
+   * attributes should be added to the specific cartItem (by incrementing .qty +1) and also total will be updated */
+  addFromCart = (aUniqueId: string) => {
+    const existingItemIndex = this.state.cartItems.findIndex(
+      (el) => el.uniqueId === aUniqueId
+    );
+    const newCartItems = [...this.state.cartItems];
+    const updatedItem = { ...newCartItems[existingItemIndex] };
+    updatedItem.qty!++;
+    newCartItems[existingItemIndex] = updatedItem;
+    const newTotal = this.getUpdatedTotal('add', updatedItem.prices!);
+
+    this.setState({ cartItems: newCartItems, total: newTotal });
+  };
+
+  /**method to remove an item from cart - on cartOverlay or cart page (when pressing - button) only one item with the same
+   * attributes should be removed from the specific cartItem (by decrementing .qty -1) and also total will be updated */
+  removeFromCart = (aUniqueId: string) => {
+    const updatedCartItems: CartItem[] = [];
+    const existingItemIndex = this.state.cartItems.findIndex(
+      (el) => el.uniqueId === aUniqueId
+    );
+    for (let item of this.state.cartItems) {
+      updatedCartItems.push({ ...item });
+    }
+    // remove the whole item from the cartItems list if needed or else decrement qty
+    // state should be updated immutably but by making deep copies
+    const newTotal = this.getUpdatedTotal(
+      'remove',
+      updatedCartItems[existingItemIndex].prices!
+    );
+    if (updatedCartItems[existingItemIndex].qty === 1) {
+      updatedCartItems.splice(existingItemIndex, 1);
+    } else {
+      updatedCartItems[existingItemIndex].qty!--;
+    }
+    // apply changes to cartItems context state
+    this.setState({ cartItems: updatedCartItems, total: newTotal });
+  };
+
   render(): React.ReactNode {
     const {
-      showCartOverlay,
+      toggleCartOverlay,
       navigateToProductDetailsPage,
       navigateToCartPage,
       navigateToListingPage,
       changeCurrencySelection,
       addToCart,
+      modifyCartItem,
+      addFromCart,
+      removeFromCart,
     } = this;
 
     return (
       <GlobalContext.Provider
         value={{
           ...this.state,
-          showCartOverlay,
+          toggleCartOverlay,
           navigateToProductDetailsPage,
           navigateToCartPage,
           navigateToListingPage,
           changeCurrencySelection,
           addToCart,
+          modifyCartItem,
+          addFromCart,
+          removeFromCart,
         }}
       >
         {this.props.children}

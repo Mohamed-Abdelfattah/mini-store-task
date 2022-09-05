@@ -8,6 +8,7 @@ type Props = {
   };
   selection?: any;
   selectAttributeHandler: (id: string) => void;
+  cssCategory?: string;
 };
 
 type State = { selected: { id?: string | null } };
@@ -21,22 +22,18 @@ export default class SwatchAttributes extends Component<Props, State> {
   };
 
   render() {
-    // console.log(
-    //   '---rendering swatch---',
-    //   this.props.attributeData.items,
-    //   this.state
-    // );
+    const { cssCategory, attributeData, selection } = this.props;
+
     return (
-      <div className={classes.general}>
-        <label>{this.props.attributeData.name.toUpperCase()}:</label>
-        <div className={classes.container}>
-          {this.props.attributeData.items.map((element) => (
-            <div key={element.id} className={classes.dd}>
+      <div className={classes[cssCategory + '-general']}>
+        <label>{attributeData.name.toUpperCase()}:</label>
+        <div className={classes[cssCategory + '-container']}>
+          {attributeData.items.map((element) => (
+            <div key={element.id} className={classes[cssCategory + '-dd']}>
               <div
-                className={`${classes.outerBox} ${
-                  this.props.selection[this.props.attributeData.name] ===
-                  element.id
-                    ? classes.selected
+                className={`${classes[cssCategory + '-outerBox']} ${
+                  selection[attributeData.name] === element.id
+                    ? classes[cssCategory + '-selected']
                     : ''
                 }`}
                 onClick={() => {
@@ -52,7 +49,7 @@ export default class SwatchAttributes extends Component<Props, State> {
                         ? '1px solid black'
                         : 'none',
                   }}
-                  className={classes.box}
+                  className={classes[cssCategory + '-box']}
                 />
               </div>
             </div>

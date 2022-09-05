@@ -4,7 +4,7 @@ import { ReactComponent as ArrowDown } from '../../../Icons/arrow_down.svg';
 import { ReactComponent as ArrowUp } from '../../../Icons/arrow_up.svg';
 import classes from './CurrencySelector.module.css';
 import { ApolloClient, gql, InMemoryCache, QueryResult } from '@apollo/client';
-import { Query } from '@apollo/client/react/components';
+import Backdrop from '../../UI/Backdrop';
 
 const QUERY_CURRENCIES_LIST = gql`
   query GetCurrenciesList {
@@ -78,69 +78,32 @@ export default class CurrencySelector extends Component<
           {this.state.menuIsOpen ? <ArrowUp /> : <ArrowDown />}
         </div>
         {this.state.menuIsOpen && (
-          <ul className={classes.menu}>
-            {errorWhileLoadingCurrenciesList ? (
-              <li>OOPS! something went wrong</li>
-            ) : (
-              currenciesList.map((item: any) => (
-                <li
-                  key={item.symbol}
-                  data-value-label={item.label}
-                  data-value-symbol={item.symbol}
-                  onClick={this.changeCurrencyHandler}
-                >
-                  {item.symbol} {item.label}
-                </li>
-              ))
-            )}
-          </ul>
+          <>
+            <ul className={classes.menu}>
+              {errorWhileLoadingCurrenciesList ? (
+                <li>OOPS! something went wrong</li>
+              ) : (
+                currenciesList.map((item: any) => (
+                  <li
+                    key={item.symbol}
+                    data-value-label={item.label}
+                    data-value-symbol={item.symbol}
+                    onClick={this.changeCurrencyHandler}
+                  >
+                    {item.symbol} {item.label}
+                  </li>
+                ))
+              )}
+            </ul>
+            <Backdrop
+              close={() => {
+                console.log('---closing currency from backdrop');
+                this.toggleMenu();
+              }}
+            />
+          </>
         )}
       </>
     );
   }
-}
-
-{
-  /* <Query query={QUERY_CURRENCIES_LIST}>
-          {({ loading, data, error }: QueryResult) => {
-            if (loading) return <ul>Loading...</ul>;
-            if (error) return <ul>
-              <p>OOPS!! something went wrong</p>
-                  {console.log(error)}
-                  {error.graphQLErrors.map(({ message }, i) => (
-                    <p key={i}>a gql error: {message}</p>
-                  ))}
-                  <p>{error.networkError?.message}</p>
-                <ul/>
-            console.log(data)
-            return 
-              <ul className={classes.menu}>
-                {data.category.products.map((product: any) => (
-                  <li
-                  data-value={this.context.currency.label}
-                  onClick={this.changeCurrencyHandler}
-                >
-                  {this.context.currency.symbol} {this.context.currency.label}
-                </li>
-                ))}
-                </ul>
-          }}
-</Query>
-
-       */
-}
-
-{
-  /* <ul className={classes.menu}>
-             <li
-               data-value={this.context.currency.label}
-               onClick={this.changeCurrencyHandler}
-             >
-               {this.context.currency.symbol} {this.context.currency.label}
-             </li>
-             <li>{this.context.currency.symbol} U</li>
-             <li>
-               {this.context.currency.symbol} {this.context.currency.label}
-             </li>
-           </ul>  */
 }

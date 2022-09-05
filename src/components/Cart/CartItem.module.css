@@ -1,0 +1,83 @@
+.overlay-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 15px 0;
+}
+
+.overlay-info p {
+  margin-bottom: 5px;
+}
+
+label {
+  font-family: 'Roboto Condensed';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 18px;
+  color: #1d1f22;
+}
+
+.overlay-label {
+  display: inline-block;
+  margin-top: 36px;
+}
+
+.overlay-brand {
+  margin: 0;
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 160%;
+  color: #1d1f22;
+}
+
+.overlay-name {
+  margin: 0;
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 160%;
+  color: #1d1f22;
+}
+
+.overlay-price {
+  margin: 0;
+
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 160%;
+  color: #1d1f22;
+}
+
+.overlay-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.overlay-qty {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.overlay-qty p {
+  font-size: 50px;
+  text-align: center;
+  font-weight: 400;
+  border: 1px solid #1d1f22;
+  margin: 0;
+}
+
+.overlay-qty svg {
+  width: 30px;
+  height: 30px;
+}
+
+.overlay-qty svg:hover {
+  cursor: pointer;
+}
+
+.overlay-qty svg:active {
+  transform: scale(1.2);
+}
