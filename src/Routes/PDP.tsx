@@ -176,7 +176,7 @@ export default class PDP extends Component<propsPDP, statePDP> {
                   {data.product.attributes.map((attribute: any) =>
                     attribute.type === 'swatch' ? (
                       <SwatchAttributes
-                        cssCategory="cart"
+                        cssCategory="page"
                         key={attribute.id}
                         attributeData={attribute}
                         selection={this.state?.product.selections}
@@ -187,7 +187,7 @@ export default class PDP extends Component<propsPDP, statePDP> {
                       />
                     ) : (
                       <TextAttributes
-                        cssCategory="cart"
+                        cssCategory="page"
                         key={attribute.id}
                         attributeData={attribute}
                         selection={this.state?.product.selections}

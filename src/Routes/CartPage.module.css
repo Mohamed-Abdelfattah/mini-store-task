@@ -1,0 +1,41 @@
+.container {
+  padding: 0px 50px;
+}
+
+.title {
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 40px;
+  margin: 45px 10px;
+  text-transform: uppercase;
+  color: #1d1f22;
+}
+
+.finally {
+  display: flex;
+  flex-direction: column;
+}
+
+.summary {
+  display: flex;
+  flex-direction: row;
+  font-size: 24px;
+  line-height: 28px;
+  color: #1d1f22;
+}
+
+.summary div:first-of-type {
+  font-weight: 400;
+}
+.summary div:first-of-type p:last-of-type {
+  font-weight: 500;
+}
+
+.summary div:last-of-type {
+  font-weight: 700;
+}
+
+.finally {
+  width: 35%;
+  margin-bottom: 20px;
+}

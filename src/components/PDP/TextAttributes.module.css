@@ -1,13 +1,13 @@
-.cart-general {
+.page-general {
   margin-top: 24px;
 }
 
-.cart-container {
+.page-container {
   display: flex;
   flex-direction: row;
 }
 
-.cart-box {
+.page-box {
   padding: 13px 22px;
   margin-top: 8px;
   margin-right: 8px;
@@ -19,13 +19,13 @@
   border: 2px solid #1d1f22;
 }
 
-.cart-box:hover {
+.page-box:hover {
   cursor: pointer;
   color: #fff;
   background-color: #1d1f22;
 }
 
-.cart-selected {
+.page-selected {
   color: #fff;
   background-color: #1d1f22;
 }

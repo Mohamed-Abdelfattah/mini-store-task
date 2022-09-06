@@ -47,11 +47,15 @@
 
 .icon svg:hover {
   cursor: pointer;
-  background-color: aqua;
-  animation: addToCart 500ms ease 0s 1 normal forwards;
+  /* background-color: aqua; */
+  animation: hover 500ms ease 0s 1 normal both;
 }
 
-@keyframes addToCart {
+/* .icon svg:active {
+  transform: translate(20px 20px);
+} */
+
+@keyframes hover {
   0% {
     transform: scale3d(1, 1, 1);
   }

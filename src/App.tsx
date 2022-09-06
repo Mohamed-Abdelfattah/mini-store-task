@@ -4,6 +4,7 @@ import CartOverlay from './components/Cart/CartOverlay';
 import Layout from './components/Layout/Layout';
 import Backdrop from './components/UI/Backdrop';
 import GlobalContext from './components/Utils/Context';
+import CartPage from './Routes/CartPage';
 import PDP from './Routes/PDP';
 import ProductList from './Routes/PLP';
 
@@ -22,8 +23,9 @@ class App extends React.Component {
           {this.context.toRender.showCart && <CartOverlay />}
           {this.context.toRender.page === 'description' ? (
             <PDP />
+          ) : this.context.toRender.page === 'cart' ? (
+            <CartPage />
           ) : (
-            // this.context.toRender.page === 'cart'?<Cart/>:
             <ProductList />
           )}
         </Layout>

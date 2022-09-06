@@ -1,10 +1,23 @@
-.carousel {
+.page-carousel {
+  height: 240px;
+  width: 200px;
+}
+
+.page-image {
+  width: 100%;
+  height: 100%;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.overlay-carousel {
   height: 150px;
   width: 120px;
   position: relative;
 }
 
-.image {
+.overlay-image {
   width: 100%;
   height: 100%;
   background-size: contain;

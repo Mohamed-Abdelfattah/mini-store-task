@@ -1,34 +1,34 @@
-.cart-container {
+.page-container {
   display: flex;
   flex-direction: row;
 }
 
-.cart-general {
+.page-general {
   margin-top: 24px;
 }
 
-.cart-dd {
+.page-dd {
   width: 37px;
   height: 37px;
   margin: 8px 6px;
   margin-left: 0;
 }
 
-.cart-outerBox {
+.page-outerBox {
   width: 36px;
   height: 36px;
 }
 
-.cart-outerBox:hover {
+.page-outerBox:hover {
   border: 1px solid #5ece7b;
   cursor: pointer;
 }
 
-.cart-selected {
+.page-selected {
   border: 1px solid #5ece7b;
 }
 
-.cart-box {
+.page-box {
   box-sizing: border-box;
   width: 32px;
   height: 32px;

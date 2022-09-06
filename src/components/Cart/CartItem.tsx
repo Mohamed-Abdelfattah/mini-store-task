@@ -83,7 +83,10 @@ export default class CartItem extends Component<Props, State> {
               />
             </div>
             <div className={classes[cssCategory + '-imageViewer']}>
-              <ImageCarousel images={itemData.gallery!} />
+              <ImageCarousel
+                images={itemData.gallery!}
+                cssCategory={cssCategory}
+              />
             </div>
           </div>
         </div>

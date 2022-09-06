@@ -81,3 +81,89 @@ label {
 .overlay-qty svg:active {
   transform: scale(1.2);
 }
+
+/* page */
+
+.page-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 15px 0;
+}
+
+.page-info p {
+  padding: 8px 0px;
+}
+
+label {
+  font-family: 'Roboto Condensed';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 18px;
+  color: #1d1f22;
+}
+
+.page-label {
+  display: inline-block;
+  margin-top: 36px;
+}
+
+.page-brand {
+  margin: 0;
+  font-weight: 600;
+  font-size: 30px;
+  line-height: 27px;
+  color: #1d1f22;
+}
+
+.page-name {
+  margin: 0;
+  font-weight: 400;
+  font-size: 30px;
+  line-height: 27px;
+  color: #1d1f22;
+}
+
+.page-price {
+  margin: 10px 0px;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 24px;
+  color: #1d1f22;
+}
+
+.page-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.page-qty {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.page-qty p {
+  font-size: 50px;
+  text-align: center;
+  font-weight: 400;
+  border: 1px solid #1d1f22;
+  margin: 0;
+}
+
+.page-qty svg {
+  width: 30px;
+  height: 30px;
+}
+
+.page-qty svg:hover {
+  cursor: pointer;
+}
+
+.page-qty svg:active {
+  transform: scale(1.2);
+}

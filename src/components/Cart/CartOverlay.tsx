@@ -40,7 +40,7 @@ export default class CartOverlay extends Component {
             </button>
             <button
               onClick={() => {
-                alert('Awesome! your order was placed successfully');
+                alert('Awesome!\nYou have successfully placed the order!');
               }}
             >
               CHECKOUT
