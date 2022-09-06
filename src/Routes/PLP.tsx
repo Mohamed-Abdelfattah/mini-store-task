@@ -37,7 +37,7 @@ export default class ProductList extends React.Component {
 
   render(): React.ReactNode {
     const { toRender } = this.context;
-    console.log(toRender.category);
+    // console.log(toRender.category);
     // console.log(QUERY_CATEGORY(toRender.category));
 
     return (
@@ -71,7 +71,7 @@ export default class ProductList extends React.Component {
                       name={product.name}
                       prices={product.prices}
                       brand={product.brand}
-                      image={product.gallery[0]}
+                      images={product.gallery}
                       hasAttributes={product.attributes.length > 0}
                     />
                   ))}

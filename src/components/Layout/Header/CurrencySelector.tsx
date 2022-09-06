@@ -38,7 +38,7 @@ apolloClient
     errorWhileLoadingCurrenciesList = true;
   });
 
-console.log('-- this should be printed once -- at currency');
+// console.log('-- this should be printed once -- at currency');
 
 export default class CurrencySelector extends Component<
   {},
@@ -51,6 +51,8 @@ export default class CurrencySelector extends Component<
 
   toggleMenu = () => {
     this.setState((state) => ({ menuIsOpen: !state.menuIsOpen }));
+    // close cart if open already
+    this.context.toRender.showCart && this.context.toggleCartOverlay();
   };
 
   changeCurrencyHandler: React.MouseEventHandler<HTMLLIElement> = (e) => {
@@ -97,7 +99,7 @@ export default class CurrencySelector extends Component<
             </ul>
             <Backdrop
               close={() => {
-                console.log('---closing currency from backdrop');
+                // console.log('---closing currency from backdrop');
                 this.toggleMenu();
               }}
             />

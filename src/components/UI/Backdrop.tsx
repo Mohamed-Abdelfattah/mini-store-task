@@ -8,7 +8,7 @@ type Props = { children?: React.ReactNode; modal?: any; close: () => void };
 
 export default class Backdrop extends Component<Props, {}> {
   render() {
-    console.log('---modal--', this.props.modal);
+    // console.log('---modal--', this.props.modal);
     return ReactDOM.createPortal(
       <>
         <div className={classes.base} onClick={this.props.close}></div>
