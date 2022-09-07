@@ -1,46 +1,20 @@
-# Getting Started with Create React App
+This is my implementation of an assessment task.
+The task required an implementation as per a provided design to fetch data from the GraphQL endpoint and to provide an interface to view and interact with this data.
+On the product listing page users can navigate between different categories to view the products which can be added directly to the cart if they are available (in-stock) and require no selection for additional options (attributes), also by clicking on any product user will be directed to the product description page.
+On the product description page, users can add the product to the cart if it's available (in stock) and all the options (attributes) are selected.
+Users can also change the currency and view the cart to modify, add, or remove any item.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Usage
 
-## Available Scripts
+#### Link for the live version: [Mini Store](mini-store-task-tan.vercel.app)
 
-In the project directory, you can run:
+Install dependencies via npm:
+`npm install`
+and then the app can be served on Localhost which can be done via npm script:
+`npm start`
 
-### `npm start`
+## Notes
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+The [live version](mini-store-task-tan.vercel.app) is connected to a GraphQL API endpoint to fetch the data, so please note that if the app will be served locally an API endpoint must be provided either by adding it to `.env.local` file or by serving it locally at [http://localhost:4000](http://localhost:4000)
+The cart data or any user selections aren't stored on a server nor cached locally and so please note that reloading the page will lead to the loss of all the progress (cart data and any selection).
+The app was built using React with class-based components and React's Context API for state management.
