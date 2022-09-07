@@ -7,20 +7,11 @@ import CartPage from './Routes/CartPage';
 import PDP from './Routes/PDP';
 import ProductList from './Routes/PLP';
 
-console.log(
-  '-----@ App first render --> env:',
-  process.env.REACT_APP_API_ENDPOINT || 'no env'
-);
-
 class App extends React.Component {
   static contextType = GlobalContext;
   context!: React.ContextType<typeof GlobalContext>;
 
   render(): React.ReactNode {
-    console.log(
-      '---@ every render --> env:',
-      process.env.REACT_APP_API_ENDPOINT
-    );
     return (
       <div className="App">
         <Layout>
