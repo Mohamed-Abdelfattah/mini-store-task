@@ -15,6 +15,7 @@ type ProductCardProps = {
   }[];
   images: string[];
   hasAttributes: boolean;
+  inStock: boolean;
 };
 
 export default class ProductCard extends React.Component<ProductCardProps> {
@@ -35,11 +36,22 @@ export default class ProductCard extends React.Component<ProductCardProps> {
           className={classes.card}
         >
           <div className={classes.cover}>
-            <img
-              src={this.props.images[0]}
-              alt={this.props.name}
-              className={classes.image}
-            />
+            {this.props.inStock ? (
+              <img
+                src={this.props.images[0]}
+                alt={this.props.name}
+                className={classes.image}
+              />
+            ) : (
+              <div
+                style={{
+                  backgroundImage: `radial-gradient(#ffffffb5, #c4c4c43b), url(${this.props.images[0]})`,
+                }}
+                className={classes.stock}
+              >
+                out of stock
+              </div>
+            )}
           </div>
           <div className={classes.content}>
             <p className={classes.title}>
@@ -52,7 +64,7 @@ export default class ProductCard extends React.Component<ProductCardProps> {
           </div>
         </div>
         <div className={classes.icon}>
-          {!this.props.hasAttributes && (
+          {!this.props.hasAttributes && this.props.inStock && (
             <AddToCartIcon
               onClick={() => {
                 this.context.addToCart({

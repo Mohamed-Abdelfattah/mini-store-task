@@ -65,7 +65,6 @@ export default class PDP extends Component<propsPDP, statePDP> {
   /**method to evaluate state .isReadyToBeAdded (used to render add button visible) and to generate a new selectionsId and
    * new uniqueId before adding the product to cart */
   evaluateReadyToBeAddedAndGenerateSelectionsId = () => {
-    
     let nullValueFound = false;
 
     let newSelectionsId = this.state.product.id || '';
@@ -77,7 +76,7 @@ export default class PDP extends Component<propsPDP, statePDP> {
       }
     }
     const newUniqueId = Math.trunc(Math.random() * 10 ** 10).toString();
-    
+
     this.setState({
       isReadyToBeAdded: !nullValueFound,
       product: {
@@ -88,8 +87,6 @@ export default class PDP extends Component<propsPDP, statePDP> {
       },
     });
   };
-
-  
 
   changeSelection = (property: string, id: string) => {
     // setState accepts a 2nd argument which is a callback to be executed programmatically after state gets updated
@@ -151,7 +148,10 @@ export default class PDP extends Component<propsPDP, statePDP> {
             );
             return (
               <div className={classes.container}>
-                <GalleryViewer images={data.product.gallery} />
+                <GalleryViewer
+                  images={data.product.gallery}
+                  inStock={data.product.inStock}
+                />
                 <div className={classes.info}>
                   <p className={classes.brand}>{data.product.brand}</p>
                   <p className={classes.name}>{data.product.name}</p>
@@ -187,7 +187,7 @@ export default class PDP extends Component<propsPDP, statePDP> {
                     {priceTag.currency.symbol}
                     {priceTag.amount}
                   </p>
-                  {this.state.isReadyToBeAdded ? (
+                  {this.state.isReadyToBeAdded && data.product.inStock ? (
                     <button
                       className={classes.btn}
                       onClick={() => {

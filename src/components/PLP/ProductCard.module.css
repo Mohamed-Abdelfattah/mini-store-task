@@ -21,6 +21,22 @@
   display: block;
 }
 
+.stock {
+  width: 330px;
+  height: 330px;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 160%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #8d8f9a;
+  text-transform: uppercase;
+}
+
 .icon {
   display: inline;
   height: 24px;
@@ -38,8 +54,6 @@
   cursor: pointer;
   animation: hover 500ms ease 0s 1 normal both;
 }
-
-
 
 @keyframes hover {
   0% {

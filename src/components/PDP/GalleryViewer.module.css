@@ -19,12 +19,26 @@
 .imageViewer {
   max-width: 610px;
   max-height: 610px;
+  /* min-height: 610px;
+  width: 100%; */
   display: flex;
   justify-content: space-around;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  align-items: center;
 }
 
 .imageViewer img {
   object-fit: contain;
   max-width: 100%;
   max-height: 100%;
+}
+
+.imageViewer p {
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 160%;
+  color: #8d8f9a;
+  text-transform: uppercase;
 }

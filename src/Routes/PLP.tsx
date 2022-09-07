@@ -59,7 +59,7 @@ export default class ProductList extends React.Component {
                     <p>{error.networkError?.message}</p>
                   </>
                 );
-              
+
               return (
                 <div className={classes.cardsLayout}>
                   {data.category.products.map((product: any) => (
@@ -71,6 +71,7 @@ export default class ProductList extends React.Component {
                       brand={product.brand}
                       images={product.gallery}
                       hasAttributes={product.attributes.length > 0}
+                      inStock={product.inStock}
                     />
                   ))}
                 </div>

@@ -1,9 +1,9 @@
-import React, { ChangeEventHandler, Component } from 'react';
+import React, {  Component } from 'react';
 import GlobalContext from '../../Utils/Context';
 import { ReactComponent as ArrowDown } from '../../../Icons/arrow_down.svg';
 import { ReactComponent as ArrowUp } from '../../../Icons/arrow_up.svg';
 import classes from './CurrencySelector.module.css';
-import { ApolloClient, gql, InMemoryCache, QueryResult } from '@apollo/client';
+import { ApolloClient, gql, InMemoryCache } from '@apollo/client';
 import Backdrop from '../../UI/Backdrop';
 
 const QUERY_CURRENCIES_LIST = gql`
