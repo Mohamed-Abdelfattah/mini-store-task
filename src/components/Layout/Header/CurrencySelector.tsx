@@ -16,7 +16,7 @@ const QUERY_CURRENCIES_LIST = gql`
 `;
 
 const apolloClient = new ApolloClient({
-  uri: 'https://graphql-shop-data.herokuapp.com',
+  uri: process.env.REACT_APP_API_ENDPOINT || 'http://localhost:4000',
   cache: new InMemoryCache(),
 });
 
@@ -30,15 +30,12 @@ let errorWhileLoadingCurrenciesList = false;
 apolloClient
   .query({ query: QUERY_CURRENCIES_LIST })
   .then((res) => {
-    // console.log(res.data);
     currenciesList = res.data.currencies;
   })
   .catch((err) => {
     console.log(err.message);
     errorWhileLoadingCurrenciesList = true;
   });
-
-// console.log('-- this should be printed once -- at currency');
 
 export default class CurrencySelector extends Component<
   {},
@@ -56,18 +53,14 @@ export default class CurrencySelector extends Component<
   };
 
   changeCurrencyHandler: React.MouseEventHandler<HTMLLIElement> = (e) => {
-    // console.log(e.currentTarget.dataset.valueLabel);
-    // console.log(e.currentTarget.dataset.valueSymbol);
     this.context.changeCurrencySelection({
       label: e.currentTarget.dataset.valueLabel!,
       symbol: e.currentTarget.dataset.valueSymbol!,
     });
-    // console.log(this.context.currency.symbol);
     this.setState({ menuIsOpen: false });
   };
 
   render() {
-    // console.log('rendering with state:', this.context.currency);
     return (
       <>
         <div
@@ -99,7 +92,6 @@ export default class CurrencySelector extends Component<
             </ul>
             <Backdrop
               close={() => {
-                // console.log('---closing currency from backdrop');
                 this.toggleMenu();
               }}
             />

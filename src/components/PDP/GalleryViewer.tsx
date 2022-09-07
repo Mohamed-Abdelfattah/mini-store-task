@@ -12,7 +12,6 @@ export default class GalleryViewer extends Component<
 
   selectImage: React.MouseEventHandler<HTMLImageElement> | undefined = (e) => {
     const target = e.target as HTMLImageElement;
-    // console.log(target.src);
     this.setState({ imageToBeViewed: target.src });
   };
 
@@ -27,7 +26,6 @@ export default class GalleryViewer extends Component<
         <div className={classes.imageViewer}>
           <img
             src={this.state.imageToBeViewed}
-            // className={classes.imageViewer}
           />
         </div>
       </div>

@@ -14,10 +14,8 @@ type Props = {
 type State = { selected: { id?: string | null } };
 
 export default class SwatchAttributes extends Component<Props, State> {
-  //   state = { selected: { id: this.props.selection[this.props.attributeData.name] } };
 
   selectAttributeHandler = (newID: string) => {
-    // console.log(newID);
     this.setState({ selected: { id: newID } });
   };
 

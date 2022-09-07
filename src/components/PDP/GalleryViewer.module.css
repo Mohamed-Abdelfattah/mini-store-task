@@ -17,9 +17,7 @@
 }
 
 .imageViewer {
-  /* width: 610px; */
   max-width: 610px;
-  /* height: 610px; */
   max-height: 610px;
   display: flex;
   justify-content: space-around;

@@ -7,8 +7,7 @@ import reportWebVitals from './reportWebVitals';
 import { GlobalContextProvider } from './components/Utils/Context';
 
 const client = new ApolloClient({
-  // uri: 'http://localhost:4000',
-  uri: 'https://graphql-shop-data.herokuapp.com',
+  uri: process.env.REACT_APP_API_ENDPOINT || 'http://localhost:4000',
   cache: new InMemoryCache(),
 });
 

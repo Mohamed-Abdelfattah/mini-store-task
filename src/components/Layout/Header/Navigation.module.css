@@ -27,15 +27,12 @@
   font-style: normal;
   font-weight: 400;
   font-size: 16px;
-  /* line-height: 120%; */
-  /* identical to box height, or 19px */
   text-align: center;
   color: #1d1f22;
   padding: 32px 20px;
 }
 
 .link:hover {
-  /* font-size: 17px; */
   font-weight: 600;
   color: #5ece7b;
   transition: all 0.3s ease 0s;
@@ -46,7 +43,6 @@
 }
 
 .active a {
-  /* font-size: 17px; */
   color: #5ece7b;
   font-weight: 600;
 }

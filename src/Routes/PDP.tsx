@@ -65,9 +65,7 @@ export default class PDP extends Component<propsPDP, statePDP> {
   /**method to evaluate state .isReadyToBeAdded (used to render add button visible) and to generate a new selectionsId and
    * new uniqueId before adding the product to cart */
   evaluateReadyToBeAddedAndGenerateSelectionsId = () => {
-    // const nullAttributeIndex = Object.values(this.state.product.selections).findIndex(
-    //   (el) => el === null
-    // );
+    
     let nullValueFound = false;
 
     let newSelectionsId = this.state.product.id || '';
@@ -79,12 +77,7 @@ export default class PDP extends Component<propsPDP, statePDP> {
       }
     }
     const newUniqueId = Math.trunc(Math.random() * 10 ** 10).toString();
-    // console.log(
-    //   '---newSelectionsId: ',
-    //   newSelectionsId,
-    //   'nullValueFound:',
-    //   nullValueFound
-    // );
+    
     this.setState({
       isReadyToBeAdded: !nullValueFound,
       product: {
@@ -96,13 +89,9 @@ export default class PDP extends Component<propsPDP, statePDP> {
     });
   };
 
-  // componentDidUpdate() {
-  //   console.log('---componentDidUpdate will evaluate state---');
-  //   // this.evaluateReadyToBeAdded();
-  // }
+  
 
   changeSelection = (property: string, id: string) => {
-    // console.log('---executing changeSelection---', property, id);
     // setState accepts a 2nd argument which is a callback to be executed programmatically after state gets updated
     this.setState(
       (prevState) => ({
@@ -110,7 +99,6 @@ export default class PDP extends Component<propsPDP, statePDP> {
         product: {
           ...prevState.product,
           selections: { ...prevState.product?.selections, [property]: id },
-          // selectionsId: `${prevState.product?.selectionsId}-${id}`,
         },
       }),
       this.evaluateReadyToBeAddedAndGenerateSelectionsId
@@ -124,9 +112,7 @@ export default class PDP extends Component<propsPDP, statePDP> {
           query={QUERY_PRODUCT}
           variables={{ productId: this.context.toRender.productId }}
           onCompleted={(data: any) => {
-            // console.log('---on completion of query @ PDP---');
             const newId = Math.trunc(Math.random() * 10 ** 10).toString();
-            // { [k: string]: any }
             const stateObject: statePDP = {
               isReadyToBeAdded: true,
               product: {
@@ -138,15 +124,12 @@ export default class PDP extends Component<propsPDP, statePDP> {
               },
             };
             if (data.product.attributes.length > 0) {
-              // console.log('have attributes');
-              // console.log(data.product.attributes);
               stateObject.isReadyToBeAdded = false;
               for (let attributeSet of data.product.attributes) {
                 stateObject.product!.selections![attributeSet.name] = null;
               }
             }
             this.setState(stateObject);
-            // console.log('@PDP - populating attributes', stateObject);
           }}
         >
           {({ loading, data, error }: QueryResult) => {
@@ -162,7 +145,6 @@ export default class PDP extends Component<propsPDP, statePDP> {
                   <p>{error.networkError?.message}</p>
                 </>
               );
-            // console.log('@PDP product state:', this.state);
             const priceTag = data.product.prices.find(
               (item: any) =>
                 item.currency.symbol === this.context.currency.symbol

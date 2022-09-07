@@ -13,10 +13,10 @@ export default class CartPage extends Component {
         <p className={classes.title}>cart</p>
         <hr />
         {this.context.cartItems.map((item) => (
-          <>
-            <CartItem itemData={item} key={item.uniqueId} cssCategory="page" />
+          <div key={item.uniqueId}>
+            <CartItem itemData={item} cssCategory="page" />
             <hr />
-          </>
+          </div>
         ))}
         <div className={classes.finally}>
           <div className={classes.summary}>

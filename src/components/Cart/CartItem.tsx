@@ -69,7 +69,6 @@ export default class CartItem extends Component<Props, State> {
           </div>
           <div className={classes[cssCategory + '-wrapper']}>
             <div className={classes[cssCategory + '-qty']}>
-              {/* <p>+</p> */}
               <PlusIcon
                 onClick={() => {
                   this.context.addFromCart(this.props.itemData.uniqueId!);

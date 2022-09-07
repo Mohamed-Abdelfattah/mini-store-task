@@ -1,6 +1,49 @@
 .page-carousel {
   height: 240px;
   width: 200px;
+  position: relative;
+}
+
+.page-leftArrow {
+  width: 24px;
+  height: 24px;
+  background: rgba(0, 0, 0, 0.73);
+  position: absolute;
+  top: 90%;
+  left: 66%;
+  /* transform: translate(0, -50%); */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.page-leftArrow:hover {
+  cursor: pointer;
+}
+
+.page-leftArrow:active {
+  transform: scale(0.8);
+}
+
+.page-rightArrow {
+  width: 24px;
+  height: 24px;
+  background: rgba(0, 0, 0, 0.73);
+  position: absolute;
+  top: 90%;
+  left: 80%;
+  /* transform: translate(0, -50%); */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.page-rightArrow:hover {
+  cursor: pointer;
+}
+
+.page-rightArrow:active {
+  transform: scale(0.8);
 }
 
 .page-image {
@@ -15,6 +58,14 @@
   height: 150px;
   width: 120px;
   position: relative;
+}
+
+.overlay-leftArrow {
+  display: none;
+}
+
+.overlay-rightArrow {
+  display: none;
 }
 
 .overlay-image {

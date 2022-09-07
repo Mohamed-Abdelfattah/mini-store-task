@@ -37,8 +37,6 @@ export default class ProductList extends React.Component {
 
   render(): React.ReactNode {
     const { toRender } = this.context;
-    // console.log(toRender.category);
-    // console.log(QUERY_CATEGORY(toRender.category));
 
     return (
       <>
@@ -61,7 +59,7 @@ export default class ProductList extends React.Component {
                     <p>{error.networkError?.message}</p>
                   </>
                 );
-              // console.log(data);
+              
               return (
                 <div className={classes.cardsLayout}>
                   {data.category.products.map((product: any) => (

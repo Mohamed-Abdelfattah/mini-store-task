@@ -8,16 +8,11 @@
   display: flex;
   background-color: white;
   padding: 12px 16px;
-  /* gap: 32px; */
   flex-direction: column;
   justify-content: space-between;
 }
 
 .items {
-  /* display: flex;  */
-  /* flex-direction: column; */
-  /* justify-content: center; */
-  /* align-items: center; */
   overflow: auto;
   scroll-behavior: smooth;
   overscroll-behavior: contain;

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { ReactComponent as CartIcon } from '../../../Icons/Empty Cart.svg';
-import CartOverlay from '../../Cart/CartOverlay';
-import GlobalContext, { CartItem } from '../../Utils/Context';
+import GlobalContext from '../../Utils/Context';
 import classes from './CartButton.module.css';
 
 export default class CartButton extends Component {
@@ -9,7 +8,6 @@ export default class CartButton extends Component {
   context!: React.ContextType<typeof GlobalContext>;
 
   render() {
-    console.log('cart', this.context.cartItems);
     return (
       <>
         <div className={classes.icon}>
@@ -23,7 +21,6 @@ export default class CartButton extends Component {
             </div>
           )}
         </div>
-        {/* {this.context.toRender.showCart && <CartOverlay />} */}
       </>
     );
   }

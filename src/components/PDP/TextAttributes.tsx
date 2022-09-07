@@ -16,7 +16,6 @@ type State = {};
 export default class TextAttributes extends Component<Props, State> {
   render() {
     const { cssCategory, attributeData, selection } = this.props;
-    // console.log('-----@@@ cssCategory =', cssCategory);
 
     return (
       <div className={classes[cssCategory + '-general']}>

@@ -22,7 +22,6 @@ export default class ProductCard extends React.Component<ProductCardProps> {
   context!: React.ContextType<typeof GlobalContext>;
 
   render(): React.ReactNode {
-    // console.log('--- at each render in product Card ---');
     const price = this.props.prices.find(
       (item) => item.currency.symbol === this.context.currency.symbol
     );
@@ -69,7 +68,6 @@ export default class ProductCard extends React.Component<ProductCardProps> {
                   selections: {},
                   uniqueId: Math.trunc(Math.random() * 10 ** 10).toString(),
                 });
-                // console.log('----adding product from PLP-----');
               }}
             />
           )}

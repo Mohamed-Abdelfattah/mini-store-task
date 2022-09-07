@@ -95,10 +95,7 @@ export class GlobalContextProvider extends React.Component<
   ProviderProps,
   GlobalContextState
 > {
-  // constructor(props: ProviderProps) {
-  //   super(props);
-  //   this.state = initialGlobalContextState;
-  // }
+  
 
   state = initialGlobalContextState;
 
@@ -185,7 +182,6 @@ export class GlobalContextProvider extends React.Component<
    * qty will be incremented +1 and if no such product exists a new one will be added with its corresponding
    * attributes - total state {qty,cost} will be updated as well by adding the new values*/
   addToCart = (payload: CartItem) => {
-    const newTotalCost: { [k: string]: number } = { $: 0 };
     const updatedCartItems: CartItem[] = [];
     const existingItemIndex = this.state.cartItems.findIndex(
       (el) => el.selectionsId === payload.selectionsId
@@ -202,11 +198,7 @@ export class GlobalContextProvider extends React.Component<
     }
 
     const newTotal = this.getUpdatedTotal('add', payload.prices!);
-    // const newQty = this.state.total.qty + 1;
-    // for (let element of payload.prices!) {
-    //   newTotalCost[element.currency.symbol] =
-    //     (this.state.total.cost[element.currency.symbol] || 0) + element.amount;
-    // }
+   
     this.setState({
       total: newTotal,
       cartItems: updatedCartItems,
