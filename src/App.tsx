@@ -1,11 +1,13 @@
 import React from 'react';
+import { Redirect, Route, Switch } from 'react-router-dom';
 import './App.css';
 import CartOverlay from './components/Cart/CartOverlay';
 import Layout from './components/Layout/Layout';
 import GlobalContext from './components/Utils/Context';
 import CartPage from './Routes/CartPage';
 import PDP from './Routes/PDP';
-import ProductList from './Routes/PLP';
+import PLP from './Routes/PLP';
+import NotFound from './Routes/NotFound';
 
 class App extends React.Component {
   static contextType = GlobalContext;
@@ -16,13 +18,29 @@ class App extends React.Component {
       <div className="App">
         <Layout>
           {this.context.toRender.showCart && <CartOverlay />}
-          {this.context.toRender.page === 'description' ? (
+          <Switch>
+            <Route path="/" exact>
+              <Redirect to="/products?category=all" />
+            </Route>
+            <Route path="/products" component={PLP} exact />
+            <Route path="/products/:productId" component={PDP} />
+            <Route path="/cart" component={CartPage} />
+            <Route
+              path="*"
+              render={(routerProps) => (
+                <NotFound {...routerProps}>
+                  <p>Are you sure about this URL!!</p>
+                </NotFound>
+              )}
+            />
+          </Switch>
+          {/* {this.context.toRender.page === 'description' ? (
             <PDP />
           ) : this.context.toRender.page === 'cart' ? (
             <CartPage />
           ) : (
-            <ProductList />
-          )}
+            <PLP />
+          )} */}
         </Layout>
       </div>
     );

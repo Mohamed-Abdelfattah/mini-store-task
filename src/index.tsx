@@ -5,6 +5,7 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { GlobalContextProvider } from './components/Utils/Context';
+import { BrowserRouter } from 'react-router-dom';
 
 const client = new ApolloClient({
   uri: process.env.REACT_APP_API_ENDPOINT || 'http://localhost:4000',
@@ -16,11 +17,13 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <ApolloProvider client={client}>
-      <GlobalContextProvider>
-        <App />
-      </GlobalContextProvider>
-    </ApolloProvider>
+    <BrowserRouter>
+      <ApolloProvider client={client}>
+        <GlobalContextProvider>
+          <App />
+        </GlobalContextProvider>
+      </ApolloProvider>
+    </BrowserRouter>
   </React.StrictMode>
 );
 
