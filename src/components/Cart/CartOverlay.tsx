@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import Backdrop from '../UI/Backdrop';
 import GlobalContext from '../Utils/Context';
 import CartItem from './CartItem';
@@ -32,12 +33,15 @@ export default class CartOverlay extends Component {
             </p>
           </div>
           <div className={classes.buttons}>
-            <button
+            <Link
+              to="/cart"
               className={classes.buttonVariant}
-              onClick={this.context.navigateToCartPage}
+              onClick={() => {
+                this.context.toggleCartOverlay();
+              }}
             >
               VIEW BAG
-            </button>
+            </Link>
             <button
               onClick={() => {
                 alert('Awesome!\nYou have successfully placed the order!');

@@ -16,6 +16,7 @@ type ProductCardProps = {
   images: string[];
   hasAttributes: boolean;
   inStock: boolean;
+  navigateToProductDetailsPage: (productId: string) => void;
 };
 
 export default class ProductCard extends React.Component<ProductCardProps> {
@@ -31,7 +32,7 @@ export default class ProductCard extends React.Component<ProductCardProps> {
       <div className={classes.container}>
         <div
           onClick={() => {
-            this.context.navigateToProductDetailsPage(this.props.id);
+            this.props.navigateToProductDetailsPage(this.props.id);
           }}
           className={classes.card}
         >

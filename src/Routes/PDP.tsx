@@ -1,10 +1,12 @@
 import { gql, QueryResult } from '@apollo/client';
 import { Query } from '@apollo/client/react/components';
 import React, { Component } from 'react';
+import { RouteComponentProps } from 'react-router-dom';
 import GalleryViewer from '../components/PDP/GalleryViewer';
 import SwatchAttributes from '../components/PDP/SwatchAttributes';
 import TextAttributes from '../components/PDP/TextAttributes';
 import GlobalContext, { CartItem } from '../components/Utils/Context';
+import NotFound from './NotFound';
 import classes from './PDP.module.css';
 
 const QUERY_PRODUCT = gql`
@@ -41,8 +43,11 @@ type statePDP = {
   product?: CartItem & { selections?: { [k: string]: any } };
   isReadyToBeAdded?: boolean;
 };
-type propsPDP = {};
-export default class PDP extends Component<propsPDP, statePDP> {
+// type propsPDP = ;
+export default class PDP extends Component<
+  RouteComponentProps<{ productId: string }>,
+  statePDP
+> {
   static contextType = GlobalContext;
   context!: React.ContextType<typeof GlobalContext>;
 
@@ -107,20 +112,20 @@ export default class PDP extends Component<propsPDP, statePDP> {
       <div className={classes.general}>
         <Query
           query={QUERY_PRODUCT}
-          variables={{ productId: this.context.toRender.productId }}
+          variables={{ productId: this.props.match.params.productId }}
           onCompleted={(data: any) => {
             const newId = Math.trunc(Math.random() * 10 ** 10).toString();
             const stateObject: statePDP = {
               isReadyToBeAdded: true,
               product: {
                 ...data.product,
-                selectionsId: data.product.id,
+                selectionsId: data.product?.id,
                 qty: 1,
                 selections: {},
                 uniqueId: newId,
               },
             };
-            if (data.product.attributes.length > 0) {
+            if (data.product?.attributes.length > 0) {
               stateObject.isReadyToBeAdded = false;
               for (let attributeSet of data.product.attributes) {
                 stateObject.product!.selections![attributeSet.name] = null;
@@ -141,6 +146,14 @@ export default class PDP extends Component<propsPDP, statePDP> {
                   ))}
                   <p>{error.networkError?.message}</p>
                 </>
+              );
+            if (!data.product)
+              return (
+                <NotFound {...this.props}>
+                  <div>
+                    <p>No such a product!!</p>
+                  </div>
+                </NotFound>
               );
             const priceTag = data.product.prices.find(
               (item: any) =>
