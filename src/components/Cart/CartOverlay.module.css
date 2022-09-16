@@ -74,14 +74,42 @@ button {
   transition: 0.2s all;
 }
 
+/* .buttons a {
+  background-color: #5ece7b;
+  padding: 16px 32px;
+  width: 100%;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 120%;
+  color: #ffffff;
+  border: none;
+  box-shadow: 7px 6px 26px 1px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  transition: 0.2s all;
+} */
+
 .buttonVariant {
   background-color: #ffffff;
   color: #1d1f22;
   border: 1px solid #1d1f22;
+  /* background-color: #5ece7b; */
+  /* color: #ffffff; */
+  text-decoration: none;
+  text-align: center;
+  padding: 16px 24px;
+  width: 100%;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 120%;
+  box-shadow: 7px 6px 26px 1px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  transition: 0.2s all;
 }
 .buttonVariant:hover,
 .buttonVariant:active {
   color: #ffffff;
+  background-color: #5ece7ce0;
+  /* border: none; */
 }
 
 button:hover,

@@ -28,18 +28,22 @@ export default class ImageCarousel extends Component<Props, State> {
     const { images, cssCategory } = this.props;
     return (
       <div className={classes[cssCategory + '-carousel']}>
-        <div
-          className={classes[cssCategory + '-leftArrow']}
-          onClick={this.goToPrevious}
-        >
-          <LeftArrow />
-        </div>
-        <div
-          className={classes[cssCategory + '-rightArrow']}
-          onClick={this.goToNext}
-        >
-          <RightArrow />
-        </div>
+        {images.length > 1 && (
+          <>
+            <div
+              className={classes[cssCategory + '-leftArrow']}
+              onClick={this.goToPrevious}
+            >
+              <LeftArrow />
+            </div>
+            <div
+              className={classes[cssCategory + '-rightArrow']}
+              onClick={this.goToNext}
+            >
+              <RightArrow />
+            </div>
+          </>
+        )}
         <div
           className={classes[cssCategory + '-image']}
           style={{

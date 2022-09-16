@@ -47,7 +47,6 @@ export default class PLP extends React.Component<RouteComponentProps, {}> {
     return (
       <>
         <div className={classes.container}>
-          <h2>{searchParams.get('category')!.toUpperCase()}</h2>
           <Query
             query={QUERY_CATEGORY}
             variables={{ input: { title: searchParams.get('category') } }}
@@ -75,23 +74,26 @@ export default class PLP extends React.Component<RouteComponentProps, {}> {
                 );
               }
               return (
-                <div className={classes.cardsLayout}>
-                  {data.category.products.map((product: any) => (
-                    <ProductCard
-                      id={product.id}
-                      key={product.id}
-                      name={product.name}
-                      prices={product.prices}
-                      brand={product.brand}
-                      images={product.gallery}
-                      hasAttributes={product.attributes.length > 0}
-                      inStock={product.inStock}
-                      navigateToProductDetailsPage={
-                        this.navigateToProductDetailsPage
-                      }
-                    />
-                  ))}
-                </div>
+                <>
+                  <h2>{data.category.name.toUpperCase()}</h2>
+                  <div className={classes.cardsLayout}>
+                    {data.category.products.map((product: any) => (
+                      <ProductCard
+                        id={product.id}
+                        key={product.id}
+                        name={product.name}
+                        prices={product.prices}
+                        brand={product.brand}
+                        images={product.gallery}
+                        hasAttributes={product.attributes.length > 0}
+                        inStock={product.inStock}
+                        navigateToProductDetailsPage={
+                          this.navigateToProductDetailsPage
+                        }
+                      />
+                    ))}
+                  </div>
+                </>
               );
             }}
           </Query>

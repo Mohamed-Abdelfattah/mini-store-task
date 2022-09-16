@@ -23,8 +23,8 @@ class App extends React.Component {
               <Redirect to="/products?category=all" />
             </Route>
             <Route path="/products" component={PLP} exact />
-            <Route path="/products/:productId" component={PDP} />
-            <Route path="/cart" component={CartPage} />
+            <Route path="/products/:productId" exact component={PDP} />
+            <Route path="/cart" exact component={CartPage} />
             <Route
               path="*"
               render={(routerProps) => (
@@ -34,13 +34,6 @@ class App extends React.Component {
               )}
             />
           </Switch>
-          {/* {this.context.toRender.page === 'description' ? (
-            <PDP />
-          ) : this.context.toRender.page === 'cart' ? (
-            <CartPage />
-          ) : (
-            <PLP />
-          )} */}
         </Layout>
       </div>
     );

@@ -35,9 +35,6 @@ export type CartItem = {
 
 export type GlobalContextState = {
   toRender: {
-    page: 'listing' | 'description' | 'cart';
-    category: string;
-    productId: string | null;
     showCart: boolean;
   };
   cartItems: CartItem[] | [];
@@ -47,9 +44,6 @@ export type GlobalContextState = {
 
 export type ContextObject = GlobalContextState & {
   toggleCartOverlay: () => void;
-  navigateToProductDetailsPage: (id: string) => void;
-  navigateToCartPage: () => void;
-  navigateToListingPage: (cat: string) => void;
   changeCurrencySelection: (
     payload: typeof initialGlobalContextState.currency
   ) => void;
@@ -64,9 +58,6 @@ export type ContextObject = GlobalContextState & {
 
 const initialGlobalContextState: GlobalContextState = {
   toRender: {
-    page: 'listing',
-    category: 'all',
-    productId: null,
     showCart: false,
   },
   cartItems: [],
@@ -77,9 +68,6 @@ const initialGlobalContextState: GlobalContextState = {
 const initialGlobalContextObject: ContextObject = {
   ...initialGlobalContextState,
   toggleCartOverlay: () => {},
-  navigateToProductDetailsPage: (id: string) => {},
-  navigateToCartPage: () => {},
-  navigateToListingPage: (cat: string) => {},
   changeCurrencySelection: (payload) => {},
   addToCart: (payload) => {},
   modifyCartItem: (aUniqueId, payload) => {},
@@ -95,38 +83,7 @@ export class GlobalContextProvider extends React.Component<
   ProviderProps,
   GlobalContextState
 > {
-  
-
   state = initialGlobalContextState;
-
-  /** method to handle navigation buttons so when a button gets clicked it will change render state (page &
-   * category) which will trigger re-render for any consumer providing it with the new state values which
-   * will trigger new api call with these values to re-populate consumer's local data/state
-   */
-  navigateToListingPage = (cat: string) => {
-    this.setState({
-      toRender: {
-        page: 'listing',
-        category: cat,
-        productId: null,
-        showCart: false,
-      },
-    });
-  };
-  /** method to handle clicks on any product on the listing page which will change render state (page & id)
-   * which will trigger re-render for any consumer providing it with the new state values which will trigger
-   * new api call with these values to re-populate consumer's local data/state
-   */
-  navigateToProductDetailsPage = (id: string) => {
-    this.setState({
-      toRender: {
-        page: 'description',
-        category: this.state.toRender.category,
-        productId: id,
-        showCart: false,
-      },
-    });
-  };
 
   /** method for handling any clicks on the cart icon to render cart overlay by changing render state
    * (showCart) which will trigger re-render for any consumer providing it with the new state values which
@@ -139,18 +96,6 @@ export class GlobalContextProvider extends React.Component<
           ...prevState.toRender,
           showCart: !prevState.toRender.showCart,
         },
-      };
-    });
-  };
-
-  /** method to render cart page when clicking the view bag button by changing render state (page,showCart)
-   * which will trigger re-render for any consumer providing it with the new state values which will close
-   * cart overlay and render cart page with items from the context
-   */
-  navigateToCartPage = () => {
-    this.setState((prevState) => {
-      return {
-        toRender: { ...prevState.toRender, page: 'cart', showCart: false },
       };
     });
   };
@@ -198,7 +143,7 @@ export class GlobalContextProvider extends React.Component<
     }
 
     const newTotal = this.getUpdatedTotal('add', payload.prices!);
-   
+
     this.setState({
       total: newTotal,
       cartItems: updatedCartItems,
@@ -269,9 +214,6 @@ export class GlobalContextProvider extends React.Component<
   render(): React.ReactNode {
     const {
       toggleCartOverlay,
-      navigateToProductDetailsPage,
-      navigateToCartPage,
-      navigateToListingPage,
       changeCurrencySelection,
       addToCart,
       modifyCartItem,
@@ -284,9 +226,6 @@ export class GlobalContextProvider extends React.Component<
         value={{
           ...this.state,
           toggleCartOverlay,
-          navigateToProductDetailsPage,
-          navigateToCartPage,
-          navigateToListingPage,
           changeCurrencySelection,
           addToCart,
           modifyCartItem,
