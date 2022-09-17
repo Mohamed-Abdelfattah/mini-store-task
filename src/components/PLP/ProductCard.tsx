@@ -66,23 +66,40 @@ export default class ProductCard extends React.Component<ProductCardProps> {
         </div>
         <div className={classes.icon}>
           {!this.props.hasAttributes && this.props.inStock && (
-            <AddToCartIcon
-              onClick={() => {
-                this.context.addToCart({
-                  // __typename: 'Product',
-                  qty: 1,
-                  selectionsId: this.props.id,
-                  name: this.props.name,
-                  brand: this.props.brand,
-                  attributes: [],
-                  prices: this.props.prices,
-                  gallery: this.props.images,
-                  id: this.props.id,
-                  selections: {},
-                  uniqueId: Math.trunc(Math.random() * 10 ** 10).toString(),
-                });
-              }}
-            />
+            <>
+              <AddToCartIcon
+                onClick={() => {
+                  const addAnimationElement =
+                    document.getElementById('whenAddAnimation');
+                  addAnimationElement?.classList.replace(
+                    classes.hidden,
+                    classes.added1
+                  );
+                  setTimeout(() => {
+                    addAnimationElement?.classList.replace(
+                      classes.added1,
+                      classes.hidden
+                    );
+                  }, 500);
+                  this.context.addToCart({
+                    // __typename: 'Product',
+                    qty: 1,
+                    selectionsId: this.props.id,
+                    name: this.props.name,
+                    brand: this.props.brand,
+                    attributes: [],
+                    prices: this.props.prices,
+                    gallery: this.props.images,
+                    id: this.props.id,
+                    selections: {},
+                    uniqueId: Math.trunc(Math.random() * 10 ** 10).toString(),
+                  });
+                }}
+              />
+              <div className={classes.hidden} id="whenAddAnimation">
+                +1
+              </div>
+            </>
           )}
         </div>
       </div>

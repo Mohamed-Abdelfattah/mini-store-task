@@ -116,6 +116,9 @@ export class GlobalContextProvider extends React.Component<
     for (let element of priceList) {
       newCost[element.currency.symbol] =
         (newCost[element.currency.symbol] || 0) + operator * element.amount;
+      // to avoid -ve values
+      if (newCost[element.currency.symbol] < 0)
+        newCost[element.currency.symbol] = 0;
     }
     return { qty: newQty, cost: newCost };
   };

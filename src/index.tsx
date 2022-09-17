@@ -2,10 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 import './index.css';
-import App from './App';
+import { MemoizedApp } from './App';
 import reportWebVitals from './reportWebVitals';
 import { GlobalContextProvider } from './components/Utils/Context';
 import { BrowserRouter } from 'react-router-dom';
+import Layout from './components/Layout/Layout';
 
 const client = new ApolloClient({
   uri: process.env.REACT_APP_API_ENDPOINT || 'http://localhost:4000',
@@ -20,7 +21,8 @@ root.render(
     <BrowserRouter>
       <ApolloProvider client={client}>
         <GlobalContextProvider>
-          <App />
+          <Layout />
+          <MemoizedApp />
         </GlobalContextProvider>
       </ApolloProvider>
     </BrowserRouter>

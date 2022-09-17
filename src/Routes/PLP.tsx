@@ -1,7 +1,6 @@
 import { gql, QueryResult } from '@apollo/client';
 import { Query } from '@apollo/client/react/components';
 import React from 'react';
-import GlobalContext from '../components/Utils/Context';
 import ProductCard from '../components/PLP/ProductCard';
 import classes from './PLP.module.css';
 import { RouteComponentProps } from 'react-router-dom';
@@ -34,16 +33,13 @@ const QUERY_CATEGORY = gql`
 `;
 
 export default class PLP extends React.Component<RouteComponentProps, {}> {
-  static contextType = GlobalContext;
-  context!: React.ContextType<typeof GlobalContext>;
-
   navigateToProductDetailsPage = (id: string) => {
     this.props.history.push(this.props.match.url + '/' + id);
   };
 
   render(): React.ReactNode {
     const searchParams = new URLSearchParams(this.props.location.search);
-
+    console.log('rendering plp');
     return (
       <>
         <div className={classes.container}>
