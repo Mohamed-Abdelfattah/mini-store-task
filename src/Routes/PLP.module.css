@@ -1,14 +1,24 @@
 .container {
   padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .container h2 {
   font-size: 42px;
   font-weight: 400;
+  align-self: start;
 }
 
 .cardsLayout {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(386px, 1fr));
+  grid-template-columns: repeat(3, minmax(auto, 386px));
   gap: 40px;
+  /* display: flex;
+  flex-wrap: wrap; */
 }
+
+/* .cardsLayout > * {
+  flex: 0 1 33%;
+} */

@@ -16,17 +16,21 @@
   margin-bottom: 20px;
 }
 
+.imageSelector img:hover {
+  cursor: pointer;
+}
+
 .imageViewer {
   max-width: 610px;
   max-height: 610px;
-  /* min-height: 610px;
-  width: 100%; */
   display: flex;
-  justify-content: space-around;
   background-position: center;
-  background-repeat: no-repeat;
-  background-size: contain;
+  /* background-repeat: no-repeat;
+    background-size: contain; */
+  position: relative;
   align-items: center;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .imageViewer img {
@@ -35,10 +39,10 @@
   max-height: 100%;
 }
 
-.imageViewer p {
+/* .imageViewer p {
   font-weight: 400;
   font-size: 24px;
   line-height: 160%;
   color: #8d8f9a;
   text-transform: uppercase;
-}
+} */

@@ -39,7 +39,7 @@ export default class CartItem extends Component<Props, State> {
             <p className={classes[cssCategory + '-name']}>{itemData.name}</p>
             <p id="price" className={classes[cssCategory + '-price']}>
               {priceTag?.currency.symbol}
-              {priceTag?.amount}
+              {priceTag?.amount! * itemData.qty!}
             </p>
             {itemData.attributes?.map((attribute: any) =>
               attribute.type === 'swatch' ? (

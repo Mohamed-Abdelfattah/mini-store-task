@@ -1,0 +1,28 @@
+.image {
+  display: block;
+  object-fit: contain;
+  max-width: 100%;
+  max-height: inherit;
+  display: block;
+}
+
+.out-of-stock {
+  background-color: rgba(255, 255, 255, 0.5);
+  color: rgba(0, 0, 0, 0.5);
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 160%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  position: absolute;
+  top: 0;
+  width: -webkit-fill-available;
+  height: -webkit-fill-available;
+}
+
+.out-of-stock__text {
+}

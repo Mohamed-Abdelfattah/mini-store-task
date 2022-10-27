@@ -164,6 +164,7 @@ export default class PDP extends Component<
                 <GalleryViewer
                   images={data.product.gallery}
                   inStock={data.product.inStock}
+                  product={data.product.name}
                 />
                 <div className={classes.info}>
                   <p className={classes.brand}>{data.product.brand}</p>

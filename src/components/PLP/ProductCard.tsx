@@ -2,6 +2,7 @@ import React from 'react';
 import GlobalContext from '../Utils/Context';
 import classes from './ProductCard.module.css';
 import { ReactComponent as AddToCartIcon } from '../../Icons/addToCart.svg';
+import OutOfStockImage from './OutOfStockImage';
 
 type ProductCardProps = {
   id: string;
@@ -44,14 +45,10 @@ export default class ProductCard extends React.Component<ProductCardProps> {
                 className={classes.image}
               />
             ) : (
-              <div
-                style={{
-                  backgroundImage: `radial-gradient(#ffffffb5, #c4c4c43b), url(${this.props.images[0]})`,
-                }}
-                className={classes.stock}
-              >
-                out of stock
-              </div>
+              <OutOfStockImage
+                src={this.props.images[0]}
+                alt={this.props.name}
+              />
             )}
           </div>
           <div className={classes.content}>

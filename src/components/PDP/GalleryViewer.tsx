@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
+import OutOfStockImage from '../PLP/OutOfStockImage';
 import classes from './GalleryViewer.module.css';
 
-type propsGalleryViewer = { images: string[]; inStock: boolean };
+type propsGalleryViewer = {
+  images: string[];
+  inStock: boolean;
+  product: string;
+};
 type stateGalleryViewer = { imageToBeViewed: string };
 
 export default class GalleryViewer extends Component<
@@ -20,25 +25,22 @@ export default class GalleryViewer extends Component<
       <div className={classes.container}>
         <div className={classes.imageSelector}>
           {this.props.images.map((el) => (
-            <img key={el} src={el} onClick={this.selectImage} />
+            <img
+              key={el}
+              src={el}
+              onClick={this.selectImage}
+              alt={this.props.product}
+            />
           ))}
         </div>
-        <div
-          className={classes.imageViewer}
-          style={
-            this.props.inStock
-              ? {}
-              : {
-                  backgroundImage: `radial-gradient(#ffffffb5, #c4c4c43b), url(${this.state.imageToBeViewed})`,
-                  width: '500px',
-                  height: '500px',
-                }
-          }
-        >
+        <div className={classes.imageViewer}>
           {this.props.inStock ? (
-            <img src={this.state.imageToBeViewed} />
+            <img src={this.state.imageToBeViewed} alt={this.props.product} />
           ) : (
-            <p>out of stock</p>
+            <OutOfStockImage
+              src={this.state.imageToBeViewed}
+              alt={this.props.product}
+            />
           )}
         </div>
       </div>

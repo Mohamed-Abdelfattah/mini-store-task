@@ -16,15 +16,27 @@ export default class CartOverlay extends Component {
           <p className={classes.title}>
             <b>My Bag</b>, {this.context.total.qty} items
           </p>
-          <div className={classes.items}>
-            {this.context.cartItems.map((item) => (
-              <CartItem
-                key={item.uniqueId}
-                itemData={item}
-                cssCategory="overlay"
-              />
-            ))}
-          </div>
+          {this.context.total.qty ? (
+            <div className={classes.items}>
+              {this.context.cartItems.map((item) => (
+                <CartItem
+                  key={item.uniqueId}
+                  itemData={item}
+                  cssCategory="overlay"
+                />
+              ))}
+            </div>
+          ) : (
+            <div className={classes.items}>
+              {this.context.cartItems.map((item) => (
+                <CartItem
+                  key={item.uniqueId}
+                  itemData={item}
+                  cssCategory="overlay"
+                />
+              ))}
+            </div>
+          )}
           <div className={classes.total}>
             <p>Total</p>
             <p>

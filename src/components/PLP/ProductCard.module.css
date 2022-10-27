@@ -1,3 +1,7 @@
+.container {
+  max-width: 386px;
+}
+
 .card {
   max-width: 386px;
   height: 412px;
@@ -11,14 +15,9 @@
 
 .cover {
   max-height: 330px;
-}
-
-.image {
-  display: block;
-  object-fit: contain;
-  max-width: 100%;
-  max-height: inherit;
-  display: block;
+  display: flex;
+  justify-content: center;
+  position: relative;
 }
 
 .stock {
@@ -35,6 +34,14 @@
   justify-content: center;
   color: #8d8f9a;
   text-transform: uppercase;
+}
+
+.image {
+  display: block;
+  object-fit: contain;
+  max-width: 100%;
+  max-height: inherit;
+  display: block;
 }
 
 .icon {

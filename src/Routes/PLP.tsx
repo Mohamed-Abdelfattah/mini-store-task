@@ -39,7 +39,7 @@ export default class PLP extends React.Component<RouteComponentProps, {}> {
 
   render(): React.ReactNode {
     const searchParams = new URLSearchParams(this.props.location.search);
-    console.log('rendering plp');
+    // console.log('rendering plp');
     return (
       <>
         <div className={classes.container}>
