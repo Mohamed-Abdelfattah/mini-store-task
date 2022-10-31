@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import OutOfStockImage from '../PLP/OutOfStockImage';
 import classes from './GalleryViewer.module.css';
 
@@ -9,7 +9,7 @@ type propsGalleryViewer = {
 };
 type stateGalleryViewer = { imageToBeViewed: string };
 
-export default class GalleryViewer extends Component<
+export default class GalleryViewer extends React.PureComponent<
   propsGalleryViewer,
   stateGalleryViewer
 > {

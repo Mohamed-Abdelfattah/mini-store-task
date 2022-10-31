@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
 import CartItem from '../components/Cart/CartItem';
 import GlobalContext from '../components/Utils/Context';
 import classes from './CartPage.module.css';
 
-export default class CartPage extends Component {
+export default class CartPage extends React.PureComponent {
   static contextType = GlobalContext;
   context!: React.ContextType<typeof GlobalContext>;
 

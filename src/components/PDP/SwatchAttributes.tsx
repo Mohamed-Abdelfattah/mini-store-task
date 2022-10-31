@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import classes from './SwatchAttributes.module.css';
 
 type Props = {
@@ -13,7 +13,7 @@ type Props = {
 
 type State = { selected: { id?: string | null } };
 
-export default class SwatchAttributes extends Component<Props, State> {
+export default class SwatchAttributes extends React.PureComponent<Props, State> {
 
   selectAttributeHandler = (newID: string) => {
     this.setState({ selected: { id: newID } });

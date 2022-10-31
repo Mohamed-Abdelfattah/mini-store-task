@@ -1,6 +1,6 @@
 import { gql, QueryResult } from '@apollo/client';
 import { Query } from '@apollo/client/react/components';
-import React, { Component } from 'react';
+import React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import GalleryViewer from '../components/PDP/GalleryViewer';
 import SwatchAttributes from '../components/PDP/SwatchAttributes';
@@ -44,7 +44,7 @@ type statePDP = {
   isReadyToBeAdded?: boolean;
 };
 // type propsPDP = ;
-export default class PDP extends Component<
+export default class PDP extends React.PureComponent<
   RouteComponentProps<{ productId: string }>,
   statePDP
 > {

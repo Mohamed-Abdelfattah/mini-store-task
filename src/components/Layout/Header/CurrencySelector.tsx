@@ -1,4 +1,4 @@
-import React, {  Component } from 'react';
+import React from 'react';
 import GlobalContext from '../../Utils/Context';
 import { ReactComponent as ArrowDown } from '../../../Icons/arrow_down.svg';
 import { ReactComponent as ArrowUp } from '../../../Icons/arrow_up.svg';
@@ -37,7 +37,7 @@ apolloClient
     errorWhileLoadingCurrenciesList = true;
   });
 
-export default class CurrencySelector extends Component<
+export default class CurrencySelector extends React.PureComponent<
   {},
   { menuIsOpen: boolean }
 > {

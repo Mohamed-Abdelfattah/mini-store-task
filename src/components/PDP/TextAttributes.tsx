@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import classes from './TextAttributes.module.css';
 
 type Props = {
@@ -13,7 +13,7 @@ type Props = {
 
 type State = {};
 
-export default class TextAttributes extends Component<Props, State> {
+export default class TextAttributes extends React.PureComponent<Props, State> {
   render() {
     const { cssCategory, attributeData, selection } = this.props;
 

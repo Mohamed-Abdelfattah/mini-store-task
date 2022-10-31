@@ -20,7 +20,7 @@ type ProductCardProps = {
   navigateToProductDetailsPage: (productId: string) => void;
 };
 
-export default class ProductCard extends React.Component<ProductCardProps> {
+export default class ProductCard extends React.PureComponent<ProductCardProps> {
   static contextType = GlobalContext;
   context!: React.ContextType<typeof GlobalContext>;
 

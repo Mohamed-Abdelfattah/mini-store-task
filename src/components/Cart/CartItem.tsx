@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import SwatchAttributes from '../PDP/SwatchAttributes';
 import TextAttributes from '../PDP/TextAttributes';
 import GlobalContext, { CartItem as CartItemType } from '../Utils/Context';
@@ -10,7 +10,7 @@ import ImageCarousel from './ImageCarousel';
 type Props = { itemData: CartItemType; cssCategory?: string };
 type State = {};
 
-export default class CartItem extends Component<Props, State> {
+export default class CartItem extends React.PureComponent<Props, State> {
   static contextType = GlobalContext;
   context!: React.ContextType<typeof GlobalContext>;
 

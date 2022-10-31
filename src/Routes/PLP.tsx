@@ -32,7 +32,7 @@ const QUERY_CATEGORY = gql`
   }
 `;
 
-export default class PLP extends React.Component<RouteComponentProps, {}> {
+export default class PLP extends React.PureComponent<RouteComponentProps, {}> {
   navigateToProductDetailsPage = (id: string) => {
     this.props.history.push(this.props.match.url + '/' + id);
   };

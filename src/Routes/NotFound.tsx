@@ -5,7 +5,7 @@ type NotFoundProps = RouteComponentProps & {
   children?: React.ReactNode;
 };
 
-export default class NotFound extends React.Component<
+export default class NotFound extends React.PureComponent<
   NotFoundProps,
   { counter: number }
 > {

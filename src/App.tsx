@@ -32,5 +32,3 @@ class App extends React.PureComponent {
 }
 
 export default App;
-
-export const MemoizedApp = React.memo(App);

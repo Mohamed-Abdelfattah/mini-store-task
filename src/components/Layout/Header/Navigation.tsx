@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { NavLink } from 'react-router-dom';
 import classes from './Navigation.module.css';
 
-export default class Navigation extends Component {
+export default class Navigation extends React.PureComponent {
   // categories can be fetched from the backend but and then the navigation links could be populated with map function but
   // as I'm connecting the live version to a GraphQL server on heroku which sleeps in case of inactivity which makes the very
   // 1st call to the API a slow one and navigation links won't have any data (btw can be solved with server side rendering)

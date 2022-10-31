@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import classes from './ImageCarousel.module.css';
 import { ReactComponent as LeftArrow } from '../../Icons/leftArrow.svg';
 import { ReactComponent as RightArrow } from '../../Icons/rightArrow.svg';
@@ -6,7 +6,7 @@ import { ReactComponent as RightArrow } from '../../Icons/rightArrow.svg';
 type Props = { images: string[]; cssCategory?: string };
 type State = { currentIndex: number };
 
-export default class ImageCarousel extends Component<Props, State> {
+export default class ImageCarousel extends React.PureComponent<Props, State> {
   state = { currentIndex: 0 };
 
   goToPrevious = () => {

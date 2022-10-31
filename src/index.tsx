@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 import './index.css';
-import { MemoizedApp } from './App';
+import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { GlobalContextProvider } from './components/Utils/Context';
 import { BrowserRouter } from 'react-router-dom';
@@ -22,7 +22,7 @@ root.render(
       <ApolloProvider client={client}>
         <GlobalContextProvider>
           <Layout />
-          <MemoizedApp />
+          <App />
         </GlobalContextProvider>
       </ApolloProvider>
     </BrowserRouter>

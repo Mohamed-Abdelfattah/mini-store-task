@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import Backdrop from '../UI/Backdrop';
 import GlobalContext from '../Utils/Context';
 import CartItem from './CartItem';
 import classes from './CartOverlay.module.css';
 
-export default class CartOverlay extends Component {
+export default class CartOverlay extends React.PureComponent {
   static contextType = GlobalContext;
   context!: React.ContextType<typeof GlobalContext>;
 
