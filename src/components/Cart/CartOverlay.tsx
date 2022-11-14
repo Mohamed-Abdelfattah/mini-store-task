@@ -29,15 +29,7 @@ export default class CartOverlay extends React.PureComponent {
               ))}
             </div>
           ) : (
-            <div className={classes.items}>
-              {cartItems.map((item) => (
-                <CartItem
-                  key={item.uniqueId}
-                  itemData={item}
-                  cssCategory="overlay"
-                />
-              ))}
-            </div>
+            <></>
           )}
           <div className={classes.total}>
             <p>Total</p>
