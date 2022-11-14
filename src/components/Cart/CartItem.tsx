@@ -1,7 +1,7 @@
 import React from 'react';
 import SwatchAttributes from '../PDP/SwatchAttributes';
 import TextAttributes from '../PDP/TextAttributes';
-import GlobalContext, { CartItem as CartItemType } from '../Utils/Context';
+import GlobalContext, { CartItem as CartItemType } from '../../store/Context';
 import classes from './CartItem.module.css';
 import { ReactComponent as PlusIcon } from '../../Icons/plus-square.svg';
 import { ReactComponent as MinusIcon } from '../../Icons/minus-square.svg';
@@ -28,9 +28,11 @@ export default class CartItem extends React.PureComponent<Props, State> {
 
   render() {
     const { itemData, cssCategory } = this.props;
+    const { addFromCart, removeFromCart, currency } = this.context;
     const priceTag = itemData.prices?.find(
-      (item: any) => item.currency.symbol === this.context.currency.symbol
+      (item: any) => item.currency.symbol === currency.symbol
     );
+
     return (
       <>
         <div className={classes[cssCategory + '-container']}>
@@ -71,13 +73,13 @@ export default class CartItem extends React.PureComponent<Props, State> {
             <div className={classes[cssCategory + '-qty']}>
               <PlusIcon
                 onClick={() => {
-                  this.context.addFromCart(this.props.itemData.uniqueId!);
+                  addFromCart(this.props.itemData.uniqueId!);
                 }}
               />
               <div>{itemData.qty}</div>
               <MinusIcon
                 onClick={() => {
-                  this.context.removeFromCart(this.props.itemData.uniqueId!);
+                  removeFromCart(this.props.itemData.uniqueId!);
                 }}
               />
             </div>

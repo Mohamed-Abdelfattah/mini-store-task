@@ -1,36 +1,11 @@
-import { gql, QueryResult } from '@apollo/client';
+import { QueryResult } from '@apollo/client';
 import { Query } from '@apollo/client/react/components';
 import React from 'react';
 import ProductCard from '../components/PLP/ProductCard';
 import classes from './PLP.module.css';
 import { RouteComponentProps } from 'react-router-dom';
 import NotFound from './NotFound';
-
-const QUERY_CATEGORY = gql`
-  query getProductsOfCategory($input: CategoryInput) {
-    category(input: $input) {
-      name
-      products {
-        id
-        name
-        brand
-        inStock
-        prices {
-          currency {
-            symbol
-          }
-          amount
-        }
-        gallery
-        attributes {
-          items {
-            id
-          }
-        }
-      }
-    }
-  }
-`;
+import { QUERY_CATEGORY } from '../utils/GraphQL/queries';
 
 export default class PLP extends React.PureComponent<RouteComponentProps, {}> {
   navigateToProductDetailsPage = (id: string) => {
@@ -39,7 +14,7 @@ export default class PLP extends React.PureComponent<RouteComponentProps, {}> {
 
   render(): React.ReactNode {
     const searchParams = new URLSearchParams(this.props.location.search);
-    // console.log('rendering plp');
+
     return (
       <>
         <div className={classes.container}>
@@ -53,7 +28,7 @@ export default class PLP extends React.PureComponent<RouteComponentProps, {}> {
                 return (
                   <>
                     <p>OOPS!! something went wrong</p>
-                    {console.log(error)}
+                    {/* {console.log(error)} */}
                     {error.graphQLErrors.map(({ message }, i) => (
                       <p key={i}>a gql error: {message}</p>
                     ))}

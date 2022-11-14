@@ -1,6 +1,6 @@
 import React from 'react';
 import CartItem from '../components/Cart/CartItem';
-import GlobalContext from '../components/Utils/Context';
+import GlobalContext from '../store/Context';
 import classes from './CartPage.module.css';
 
 export default class CartPage extends React.PureComponent {
@@ -8,11 +8,13 @@ export default class CartPage extends React.PureComponent {
   context!: React.ContextType<typeof GlobalContext>;
 
   render() {
+    const { cartItems, currency, total } = this.context;
+
     return (
       <div className={classes.container}>
         <p className={classes.title}>cart</p>
         <hr />
-        {this.context.cartItems.map((item) => (
+        {cartItems.map((item) => (
           <div key={item.uniqueId}>
             <CartItem itemData={item} cssCategory="page" />
             <hr />
@@ -27,17 +29,13 @@ export default class CartPage extends React.PureComponent {
             </div>
             <div>
               <p>
-                {this.context.currency.symbol}
-                {(
-                  this.context.total.cost[this.context.currency.symbol] * 0.21
-                ).toFixed(2)}
+                {currency.symbol}
+                {(total.cost[currency.symbol] * 0.21).toFixed(2)}
               </p>
-              <p>{this.context.total.qty}</p>
+              <p>{total.qty}</p>
               <p>
-                {this.context.currency.symbol}
-                {this.context.total.cost[this.context.currency.symbol].toFixed(
-                  2
-                )}
+                {currency.symbol}
+                {total.cost[currency.symbol].toFixed(2)}
               </p>
             </div>
           </div>

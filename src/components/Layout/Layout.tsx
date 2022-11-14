@@ -1,6 +1,6 @@
 import React from 'react';
 import CartOverlay from '../Cart/CartOverlay';
-import GlobalContext from '../Utils/Context';
+import GlobalContext from '../../store/Context';
 import Header from './Header/Header';
 
 type LayoutProps = {
@@ -13,10 +13,12 @@ export default class Layout extends React.PureComponent<LayoutProps> {
   context!: React.ContextType<typeof GlobalContext>;
 
   render(): React.ReactNode {
+    const { toRender } = this.context;
+
     return (
       <>
         <Header />
-        {this.context.toRender.showCart && <CartOverlay />}
+        {toRender.showCart && <CartOverlay />}
         {/* <main>{this.props.children}</main> */}
       </>
     );

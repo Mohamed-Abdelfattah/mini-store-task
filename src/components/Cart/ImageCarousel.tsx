@@ -26,6 +26,7 @@ export default class ImageCarousel extends React.PureComponent<Props, State> {
 
   render() {
     const { images, cssCategory } = this.props;
+
     return (
       <div className={classes[cssCategory + '-carousel']}>
         {images.length > 1 && (

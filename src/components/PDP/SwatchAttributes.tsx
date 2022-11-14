@@ -13,14 +13,17 @@ type Props = {
 
 type State = { selected: { id?: string | null } };
 
-export default class SwatchAttributes extends React.PureComponent<Props, State> {
-
+export default class SwatchAttributes extends React.PureComponent<
+  Props,
+  State
+> {
   selectAttributeHandler = (newID: string) => {
     this.setState({ selected: { id: newID } });
   };
 
   render() {
-    const { cssCategory, attributeData, selection } = this.props;
+    const { cssCategory, attributeData, selection, selectAttributeHandler } =
+      this.props;
 
     return (
       <div className={classes[cssCategory + '-general']}>
@@ -35,7 +38,7 @@ export default class SwatchAttributes extends React.PureComponent<Props, State> 
                     : ''
                 }`}
                 onClick={() => {
-                  this.props.selectAttributeHandler(element.id);
+                  selectAttributeHandler(element.id);
                 }}
               >
                 <div

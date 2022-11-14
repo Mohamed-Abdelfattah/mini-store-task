@@ -6,13 +6,11 @@ export class OutOfStockImage extends PureComponent<{
   alt: string;
 }> {
   render() {
+    const { src, alt } = this.props;
+
     return (
       <>
-        <img
-          src={this.props.src}
-          alt={this.props.alt}
-          className={classes.image}
-        />
+        <img src={src} alt={alt} className={classes.image} />
         <div className={classes['out-of-stock']}>
           <p className={classes['out-of-stock__text']}>out of stock</p>
         </div>

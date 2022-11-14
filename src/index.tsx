@@ -4,7 +4,7 @@ import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { GlobalContextProvider } from './components/Utils/Context';
+import { GlobalContextProvider } from './store/Context';
 import { BrowserRouter } from 'react-router-dom';
 import Layout from './components/Layout/Layout';
 

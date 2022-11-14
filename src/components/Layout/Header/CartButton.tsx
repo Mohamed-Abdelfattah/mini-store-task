@@ -1,6 +1,6 @@
 import React from 'react';
 import { ReactComponent as CartIcon } from '../../../Icons/Empty Cart.svg';
-import GlobalContext from '../../Utils/Context';
+import GlobalContext from '../../../store/Context';
 import classes from './CartButton.module.css';
 
 export default class CartButton extends React.PureComponent {
@@ -8,16 +8,15 @@ export default class CartButton extends React.PureComponent {
   context!: React.ContextType<typeof GlobalContext>;
 
   render() {
+    const { toggleCartOverlay, total } = this.context;
+
     return (
       <>
         <div className={classes.icon}>
-          <CartIcon onClick={this.context.toggleCartOverlay} />
-          {this.context.total.qty > 0 && (
-            <div
-              onClick={this.context.toggleCartOverlay}
-              className={classes.badge}
-            >
-              {this.context.total.qty}
+          <CartIcon onClick={toggleCartOverlay} />
+          {total.qty > 0 && (
+            <div onClick={toggleCartOverlay} className={classes.badge}>
+              {total.qty}
             </div>
           )}
         </div>

@@ -1,19 +1,11 @@
 import React from 'react';
-import GlobalContext from '../../Utils/Context';
+import GlobalContext from '../../../store/Context';
 import { ReactComponent as ArrowDown } from '../../../Icons/arrow_down.svg';
 import { ReactComponent as ArrowUp } from '../../../Icons/arrow_up.svg';
 import classes from './CurrencySelector.module.css';
-import { ApolloClient, gql, InMemoryCache } from '@apollo/client';
+import { ApolloClient, InMemoryCache } from '@apollo/client';
 import Backdrop from '../../UI/Backdrop';
-
-const QUERY_CURRENCIES_LIST = gql`
-  query GetCurrenciesList {
-    currencies {
-      label
-      symbol
-    }
-  }
-`;
+import { QUERY_CURRENCIES_LIST } from '../../../utils/GraphQL/queries';
 
 const apolloClient = new ApolloClient({
   uri: process.env.REACT_APP_API_ENDPOINT || 'http://localhost:4000',
@@ -33,7 +25,7 @@ apolloClient
     currenciesList = res.data.currencies;
   })
   .catch((err) => {
-    console.log(err.message);
+    // console.log(err.message);
     errorWhileLoadingCurrenciesList = true;
   });
 
@@ -61,6 +53,8 @@ export default class CurrencySelector extends React.PureComponent<
   };
 
   render() {
+    const { currency } = this.context;
+
     return (
       <>
         <div
@@ -69,7 +63,7 @@ export default class CurrencySelector extends React.PureComponent<
             this.toggleMenu();
           }}
         >
-          <label>{this.context.currency.symbol}</label>
+          <label>{currency.symbol}</label>
           {this.state.menuIsOpen ? <ArrowUp /> : <ArrowDown />}
         </div>
         {this.state.menuIsOpen && (

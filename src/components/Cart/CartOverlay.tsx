@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Backdrop from '../UI/Backdrop';
-import GlobalContext from '../Utils/Context';
+import GlobalContext from '../../store/Context';
 import CartItem from './CartItem';
 import classes from './CartOverlay.module.css';
 
@@ -10,15 +10,17 @@ export default class CartOverlay extends React.PureComponent {
   context!: React.ContextType<typeof GlobalContext>;
 
   render() {
+    const { toggleCartOverlay, total, cartItems, currency } = this.context;
+
     return (
-      <Backdrop modal close={this.context.toggleCartOverlay}>
+      <Backdrop modal close={toggleCartOverlay}>
         <div className={classes.container}>
           <p className={classes.title}>
-            <b>My Bag</b>, {this.context.total.qty} items
+            <b>My Bag</b>, {total.qty} items
           </p>
-          {this.context.total.qty ? (
+          {total.qty ? (
             <div className={classes.items}>
-              {this.context.cartItems.map((item) => (
+              {cartItems.map((item) => (
                 <CartItem
                   key={item.uniqueId}
                   itemData={item}
@@ -28,7 +30,7 @@ export default class CartOverlay extends React.PureComponent {
             </div>
           ) : (
             <div className={classes.items}>
-              {this.context.cartItems.map((item) => (
+              {cartItems.map((item) => (
                 <CartItem
                   key={item.uniqueId}
                   itemData={item}
@@ -40,8 +42,7 @@ export default class CartOverlay extends React.PureComponent {
           <div className={classes.total}>
             <p>Total</p>
             <p>
-              {this.context.currency.symbol}{' '}
-              {this.context.total.cost[this.context.currency.symbol].toFixed(2)}
+              {currency.symbol} {total.cost[currency.symbol].toFixed(2)}
             </p>
           </div>
           <div className={classes.buttons}>
@@ -49,7 +50,7 @@ export default class CartOverlay extends React.PureComponent {
               to="/cart"
               className={classes.buttonVariant}
               onClick={() => {
-                this.context.toggleCartOverlay();
+                toggleCartOverlay();
               }}
             >
               VIEW BAG

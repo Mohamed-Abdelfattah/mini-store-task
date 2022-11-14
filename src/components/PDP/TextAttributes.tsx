@@ -15,7 +15,8 @@ type State = {};
 
 export default class TextAttributes extends React.PureComponent<Props, State> {
   render() {
-    const { cssCategory, attributeData, selection } = this.props;
+    const { cssCategory, attributeData, selection, selectAttributeHandler } =
+      this.props;
 
     return (
       <div className={classes[cssCategory + '-general']}>
@@ -30,7 +31,7 @@ export default class TextAttributes extends React.PureComponent<Props, State> {
                   : ''
               }`}
               onClick={() => {
-                this.props.selectAttributeHandler(element.id);
+                selectAttributeHandler(element.id);
               }}
             >
               {element.value}

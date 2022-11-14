@@ -24,8 +24,7 @@ export default class NotFound extends React.PureComponent<
 
   componentDidUpdate(
     prevProps: Readonly<NotFoundProps>,
-    prevState: Readonly<{ counter: number }>,
-    snapshot?: any
+    prevState: Readonly<{ counter: number }>
   ): void {
     if (prevState.counter === 0) {
       this.props.history.push('/');
@@ -41,10 +40,12 @@ export default class NotFound extends React.PureComponent<
   };
 
   render(): React.ReactNode {
+    const { children } = this.props;
+
     return (
       <>
         <p>There's nothing here</p>
-        {this.props.children}
+        {children}
         <p>you will be redirected in {this.state.counter}</p>
       </>
     );

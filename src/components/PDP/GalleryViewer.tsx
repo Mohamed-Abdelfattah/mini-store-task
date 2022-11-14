@@ -21,26 +21,20 @@ export default class GalleryViewer extends React.PureComponent<
   };
 
   render() {
+    const { images, product, inStock } = this.props;
+
     return (
       <div className={classes.container}>
         <div className={classes.imageSelector}>
-          {this.props.images.map((el) => (
-            <img
-              key={el}
-              src={el}
-              onClick={this.selectImage}
-              alt={this.props.product}
-            />
+          {images.map((el) => (
+            <img key={el} src={el} onClick={this.selectImage} alt={product} />
           ))}
         </div>
         <div className={classes.imageViewer}>
-          {this.props.inStock ? (
-            <img src={this.state.imageToBeViewed} alt={this.props.product} />
+          {inStock ? (
+            <img src={this.state.imageToBeViewed} alt={product} />
           ) : (
-            <OutOfStockImage
-              src={this.state.imageToBeViewed}
-              alt={this.props.product}
-            />
+            <OutOfStockImage src={this.state.imageToBeViewed} alt={product} />
           )}
         </div>
       </div>

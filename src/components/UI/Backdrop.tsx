@@ -8,11 +8,13 @@ type Props = { children?: React.ReactNode; modal?: any; close: () => void };
 
 export default class Backdrop extends React.PureComponent<Props, {}> {
   render() {
+    const { close, modal, children } = this.props;
+
     return ReactDOM.createPortal(
       <>
-        <div className={classes.base} onClick={this.props.close}></div>
-        {this.props.modal && <div className={classes.backdrop} />}
-        {this.props.children}
+        <div className={classes.base} onClick={close}></div>
+        {modal && <div className={classes.backdrop} />}
+        {children}
       </>,
       portalElement
     );

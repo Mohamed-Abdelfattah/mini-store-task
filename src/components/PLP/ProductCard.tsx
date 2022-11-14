@@ -1,8 +1,9 @@
 import React from 'react';
-import GlobalContext from '../Utils/Context';
+import GlobalContext from '../../store/Context';
 import classes from './ProductCard.module.css';
-import { ReactComponent as AddToCartIcon } from '../../Icons/addToCart.svg';
 import OutOfStockImage from './OutOfStockImage';
+import QuickCommerce from './QuickCommerce';
+import { generateRandomId } from '../../utils/sharedFunctions';
 
 type ProductCardProps = {
   id: string;
@@ -25,79 +26,67 @@ export default class ProductCard extends React.PureComponent<ProductCardProps> {
   context!: React.ContextType<typeof GlobalContext>;
 
   render(): React.ReactNode {
-    const price = this.props.prices.find(
-      (item) => item.currency.symbol === this.context.currency.symbol
+    const {
+      id,
+      prices,
+      navigateToProductDetailsPage,
+      name,
+      inStock,
+      brand,
+      hasAttributes,
+      images,
+    } = this.props;
+
+    const { currency, addToCart } = this.context;
+
+    const price = prices.find(
+      (item) => item.currency.symbol === currency.symbol
     );
 
     return (
       <div className={classes.container}>
         <div
           onClick={() => {
-            this.props.navigateToProductDetailsPage(this.props.id);
+            navigateToProductDetailsPage(id);
           }}
           className={classes.card}
         >
           <div className={classes.cover}>
-            {this.props.inStock ? (
-              <img
-                src={this.props.images[0]}
-                alt={this.props.name}
-                className={classes.image}
-              />
+            {inStock ? (
+              <img src={images[0]} alt={name} className={classes.image} />
             ) : (
-              <OutOfStockImage
-                src={this.props.images[0]}
-                alt={this.props.name}
+              <OutOfStockImage src={images[0]} alt={name} />
+            )}
+
+            {!hasAttributes && inStock && (
+              <QuickCommerce
+                addProductToCart={() => {
+                  addToCart({
+                    // __typename: 'Product',
+                    qty: 1,
+                    selectionsId: id,
+                    name: name,
+                    brand: brand,
+                    attributes: [],
+                    prices: prices,
+                    gallery: images,
+                    id: id,
+                    selections: {},
+                    uniqueId: generateRandomId(),
+                  });
+                }}
               />
             )}
           </div>
           <div className={classes.content}>
             <p className={classes.title}>
-              {this.props.brand} {this.props.name}
+              {brand} {name}
             </p>
             <p className={classes.price}>
               {price?.currency.symbol}
               {price?.amount}
             </p>
           </div>
-        </div>
-        <div className={classes.icon}>
-          {!this.props.hasAttributes && this.props.inStock && (
-            <>
-              <AddToCartIcon
-                onClick={() => {
-                  const addAnimationElement =
-                    document.getElementById('whenAddAnimation');
-                  addAnimationElement?.classList.replace(
-                    classes.hidden,
-                    classes.added1
-                  );
-                  setTimeout(() => {
-                    addAnimationElement?.classList.replace(
-                      classes.added1,
-                      classes.hidden
-                    );
-                  }, 500);
-                  this.context.addToCart({
-                    // __typename: 'Product',
-                    qty: 1,
-                    selectionsId: this.props.id,
-                    name: this.props.name,
-                    brand: this.props.brand,
-                    attributes: [],
-                    prices: this.props.prices,
-                    gallery: this.props.images,
-                    id: this.props.id,
-                    selections: {},
-                    uniqueId: Math.trunc(Math.random() * 10 ** 10).toString(),
-                  });
-                }}
-              />
-              <div className={classes.hidden} id="whenAddAnimation">
-                +1
-              </div>
-            </>
-          )}
         </div>
       </div>
     );
